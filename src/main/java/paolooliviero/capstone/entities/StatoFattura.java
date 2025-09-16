@@ -16,7 +16,7 @@ public class StatoFattura {
     @Column(nullable = false)
     private String nome;
 
-    @OneToMany(mappedBy = "statofattura")
+    @OneToMany(mappedBy = "statoFattura")
     private List<Fattura> fattura;
 
 
@@ -39,12 +39,6 @@ public class StatoFattura {
         this.nome = nome;
     }
 
-    @Override
-    public String toString() {
-        return "StatoFattura{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                '}';
-    }
+
 }
 

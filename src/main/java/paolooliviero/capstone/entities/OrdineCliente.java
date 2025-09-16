@@ -28,7 +28,7 @@ public class OrdineCliente {
     @ManyToOne
     @JoinColumn(name = "carico_id")
     private Carico carico;
-    @OneToMany(mappedBy = "ordinecliente")
+    @OneToMany(mappedBy = "ordineCliente")
     private List<Prodotto> prodotto;
 
     public OrdineCliente() {

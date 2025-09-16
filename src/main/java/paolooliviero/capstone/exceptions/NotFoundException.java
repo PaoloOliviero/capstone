@@ -1,4 +1,4 @@
-package paolooliviero.capstone.exceptions;
+/*package paolooliviero.capstone.exceptions;
 
 public class NotFoundException extends RuntimeException {
     public NotFoundException(long id) {
@@ -9,3 +9,5 @@ public class NotFoundException extends RuntimeException {
         super(msg);
     }
 }
+
+ */

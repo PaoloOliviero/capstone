@@ -1,4 +1,4 @@
-package paolooliviero.capstone.payloads;
+/*package paolooliviero.capstone.payloads;
 
 import jakarta.validation.constraints.*;
 
@@ -16,3 +16,5 @@ public record NewFatturaDTO(
         long id_statoFattura
 )
 {}
+
+ */

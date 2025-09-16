@@ -17,7 +17,7 @@ public class Carico {
     @OneToMany(mappedBy = "carico")
     private List<OrdineCliente> ordineCliente;
     @ManyToOne
-    @JoinColumn(name = "mezzoditrasporto_id")
+    @JoinColumn(name = "mezzoDiTrasporto_id")
     private MezzoDiTrasporto mezzoDiTrasporto;
 
     public Carico ()

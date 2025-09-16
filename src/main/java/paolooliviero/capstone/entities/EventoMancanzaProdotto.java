@@ -28,7 +28,6 @@ public class EventoMancanzaProdotto {
         this.scopertoda = scopertoda;
         this.prodottoMagazzino = prodottoMagazzino;
 
-
     }
 
     public Long getId() {

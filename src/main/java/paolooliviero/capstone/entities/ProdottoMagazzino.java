@@ -17,6 +17,10 @@ public class ProdottoMagazzino {
     private Prodotto prodotto;
 
     @ManyToOne
+    @JoinColumn(name = "magazzino_id")
+    private Magazzino magazzino;
+
+    @ManyToOne
     private ProdottoMagazzino prodottoMagazzino;
 
     private Integer quantita;

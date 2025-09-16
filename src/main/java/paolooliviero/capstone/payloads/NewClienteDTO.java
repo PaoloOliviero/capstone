@@ -1,11 +1,11 @@
-package paolooliviero.capstone.payloads;
+/* package paolooliviero.capstone.payloads;
 
 import jakarta.validation.constraints.*;
 import paolooliviero.capstone.enums.TipologiaCliente;
 
 import java.time.LocalDate;
 
-public record NewClienteDTO (
+/* public record NewClienteDTO (
 
         @NotEmpty(message = "obbligatorio!")
         @Size(min = 2, max = 40, message = "Il nome deve essere di lunghezza compresa tra 2 e 40")
@@ -46,4 +46,6 @@ public record NewClienteDTO (
 
         TipologiaCliente tipologiaCliente)
 {}
+
+ */
 

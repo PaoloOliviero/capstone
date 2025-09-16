@@ -25,7 +25,7 @@ public class Cliente {
     @JsonIgnore
     private List<Fattura> fatture;
     @OneToMany(mappedBy = "cliente")
-    private List<SedeCliente> sediCliente;
+    private List<SedeCliente> sedeCliente;
     @OneToMany(mappedBy = "cliente")
     private List<OrdineCliente> ordineCliente;
 

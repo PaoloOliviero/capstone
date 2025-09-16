@@ -48,12 +48,5 @@ public class Ruolo {
         this.utenti = utenti;
     }
 
-    @Override
-    public String toString() {
-        return "Ruolo{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", utenti=" + utenti +
-                '}';
     }
-}
+

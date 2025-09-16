@@ -6,28 +6,28 @@ import paolooliviero.capstone.enums.TipoSede;
 
 @Entity
 @ToString
-@Table(name = "sedi")
+@Table(name = "sedeCliente")
 public class SedeCliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Enumerated(EnumType.STRING)
-    private TipoSede type;
+    private TipoSede tipoSede;
 
     @OneToOne
     @JoinColumn(name = "id_address")
     private Indirizzo indirizzo;
 
     @ManyToOne
-    @JoinColumn(name = "id_cliente")
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
     public SedeCliente() {
     }
 
     public SedeCliente(TipoSede type, Indirizzo indirizzo, Cliente cliente) {
-        this.type = type;
+        this.tipoSede = tipoSede;
         this.indirizzo = indirizzo;
         this.cliente = cliente;
     }
@@ -37,11 +37,11 @@ public class SedeCliente {
     }
 
     public TipoSede getType() {
-        return type;
+        return tipoSede;
     }
 
     public void setType(TipoSede type) {
-        this.type = type;
+        this.tipoSede = type;
     }
 
     public Indirizzo getIndirizzo() {
@@ -60,13 +60,4 @@ public class SedeCliente {
         this.cliente = cliente;
     }
 
-    @Override
-    public String toString() {
-        return "Sede{" +
-                "id=" + id +
-                ", type=" + type +
-                ", indirizzo=" + indirizzo +
-                ", cliente=" + cliente +
-                '}';
     }
-}

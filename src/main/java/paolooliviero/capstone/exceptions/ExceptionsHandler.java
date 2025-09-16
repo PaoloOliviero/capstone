@@ -1,4 +1,4 @@
-package paolooliviero.capstone.exceptions;
+/*package paolooliviero.capstone.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -34,3 +34,5 @@ public class ExceptionsHandler {
         return new ErrorsDTO("C'è stato un errore generico! Giuro che lo risolveremo presto!", LocalDateTime.now());
     }
 }
+
+ */

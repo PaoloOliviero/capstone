@@ -15,18 +15,22 @@ public class MovimentoMagazzino {
     @JoinColumn(name = "prodotto_id")
     private Prodotto prodotto;
     @ManyToOne
+    @JoinColumn(name = "magazzino_id")
+    private Magazzino magazzino;
+    @ManyToOne
     private ProdottoMagazzino prodottoMagazzino;
     @ManyToOne
     private Utente registratoDa;
 
-    public MovimentoMagazzino(double quantity, Prodotto prodotto, Utente registratoDa, ProdottoMagazzino prodottoMagazzino) {
+    public MovimentoMagazzino() {}
+
+    public MovimentoMagazzino(double quantity, Prodotto prodotto, Magazzino magazzino, ProdottoMagazzino prodottoMagazzino, Utente registratoDa) {
         this.quantity = quantity;
         this.prodotto = prodotto;
-        this.registratoDa = registratoDa;
+        this.magazzino = magazzino;
         this.prodottoMagazzino = prodottoMagazzino;
+        this.registratoDa = registratoDa;
     }
-
-    public MovimentoMagazzino () {}
 
     public long getId() {
         return id;
@@ -44,20 +48,28 @@ public class MovimentoMagazzino {
         this.quantity = quantity;
     }
 
-    public ProdottoMagazzino getProdottoMagazzino() {
-        return prodottoMagazzino;
-    }
-
-    public void setProdottoMagazzino(ProdottoMagazzino prodottoMagazzino) {
-        this.prodottoMagazzino = prodottoMagazzino;
-    }
-
     public Prodotto getProdotto() {
         return prodotto;
     }
 
     public void setProdotto(Prodotto prodotto) {
         this.prodotto = prodotto;
+    }
+
+    public Magazzino getMagazzino() {
+        return magazzino;
+    }
+
+    public void setMagazzino(Magazzino magazzino) {
+        this.magazzino = magazzino;
+    }
+
+    public ProdottoMagazzino getProdottoMagazzino() {
+        return prodottoMagazzino;
+    }
+
+    public void setProdottoMagazzino(ProdottoMagazzino prodottoMagazzino) {
+        this.prodottoMagazzino = prodottoMagazzino;
     }
 
     public Utente getRegistratoDa() {
@@ -68,3 +80,4 @@ public class MovimentoMagazzino {
         this.registratoDa = registratoDa;
     }
 }
+
