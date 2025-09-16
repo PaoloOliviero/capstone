@@ -1,4 +1,4 @@
 package paolooliviero.capstone.payloads;
 
-public record RuoloDTO() {
+public record RuoloDTO(Long id, String nome) {
 }

@@ -1,10 +1,9 @@
 package paolooliviero.capstone.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.ToString;
+
+import java.util.List;
 
 @Entity
 @ToString
@@ -16,6 +15,8 @@ public class Autista {
     private String cognome;
     private boolean disponibile;
     private String telefono;
+    @OneToMany(mappedBy = "autista")
+    private List<MezzoDiTrasporto> mezzoDiTrasporto;
 
     public Autista ()
     {}

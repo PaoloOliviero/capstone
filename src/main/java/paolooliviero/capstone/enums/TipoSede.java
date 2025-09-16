@@ -1,4 +1,4 @@
 package paolooliviero.capstone.enums;
 
-public enum TipologiaSede {
+public enum TipoSede {
 }

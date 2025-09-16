@@ -1,10 +1,9 @@
 package paolooliviero.capstone.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.ToString;
+
+import java.util.List;
 
 @Entity
 @ToString
@@ -14,7 +13,12 @@ public class Carico {
     private long id;
     private String descrizione;
     private double volume;
-    private String tipoMerce;
+    private String categoria;
+    @OneToMany(mappedBy = "carico")
+    private List<OrdineCliente> ordineCliente;
+    @ManyToOne
+    @JoinColumn(name = "mezzoditrasporto_id")
+    private MezzoDiTrasporto mezzoDiTrasporto;
 
     public Carico ()
     {}
@@ -22,7 +26,7 @@ public class Carico {
     public Carico(String descrizione, double volume, String tipoMerce) {
         this.descrizione = descrizione;
         this.volume = volume;
-        this.tipoMerce = tipoMerce;
+        this.categoria = categoria;
     }
 
     public long getId() {
@@ -50,11 +54,11 @@ public class Carico {
     }
 
     public String getTipoMerce() {
-        return tipoMerce;
+        return categoria;
     }
 
     public void setTipoMerce(String tipoMerce) {
-        this.tipoMerce = tipoMerce;
+        this.categoria = tipoMerce;
     }
 }
 

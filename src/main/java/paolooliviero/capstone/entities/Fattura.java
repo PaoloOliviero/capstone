@@ -1,9 +1,6 @@
 package paolooliviero.capstone.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.ToString;
 
 import java.time.LocalDate;
@@ -16,6 +13,10 @@ public class Fattura {
     private long id;
     private LocalDate data;
     private double importo;
+    @ManyToOne
+    private Cliente cliente;
+    @ManyToOne
+    private StatoFattura statoFattura;
 
     public Fattura () {
 

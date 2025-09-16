@@ -1,13 +1,12 @@
 package paolooliviero.capstone.entities;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @ToString
@@ -22,6 +21,13 @@ public class Cliente {
     private LocalDate dataUltimoContatto;
     private Double fatturatoAnnuale;
     private String telefonoContatto;
+    @OneToMany(mappedBy = "cliente")
+    @JsonIgnore
+    private List<Fattura> fatture;
+    @OneToMany(mappedBy = "cliente")
+    private List<SedeCliente> sediCliente;
+    @OneToMany(mappedBy = "cliente")
+    private List<OrdineCliente> ordineCliente;
 
     public Cliente ()
     {}

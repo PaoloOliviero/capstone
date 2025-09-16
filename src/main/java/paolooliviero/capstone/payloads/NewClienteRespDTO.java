@@ -1,4 +1,6 @@
 package paolooliviero.capstone.payloads;
 
-public record NewClienteRespDTO (){
+public record NewClienteRespDTO (
+        long id) {
+
 }
