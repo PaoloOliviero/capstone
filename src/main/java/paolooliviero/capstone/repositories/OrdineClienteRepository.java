@@ -1,0 +1,11 @@
+package paolooliviero.capstone.repositories;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import paolooliviero.capstone.entities.Cliente;
+import paolooliviero.capstone.entities.OrdineCliente;
+
+import java.util.Optional;
+
+public interface OrdineClienteRepository extends JpaRepository<OrdineCliente, Long> {
+    Optional<OrdineCliente> findById(long id);
+}

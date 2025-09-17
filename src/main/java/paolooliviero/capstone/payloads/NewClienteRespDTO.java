@@ -1,8 +1,8 @@
-/*package paolooliviero.capstone.payloads;
+package paolooliviero.capstone.payloads;
 
 public record NewClienteRespDTO (
         long id) {
 
 }
 
- */
+

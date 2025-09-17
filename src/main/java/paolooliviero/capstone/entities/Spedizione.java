@@ -1,9 +1,6 @@
 package paolooliviero.capstone.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.ToString;
 
 @Entity
@@ -14,13 +11,15 @@ public class Spedizione {
     private long id;
     private String partenza;
     private String arrivo;
-    private String tempoPrevisto;
-    private String tempoEffettivo;
+    private Double tempoPrevisto;
+    private Double tempoEffettivo;
+    @ManyToOne
+    private Magazzino magazzinoPartenza;
 
 
     public Spedizione () {}
 
-    public Spedizione(String partenza, String arrivo, String tempoPrevisto, String tempoEffettivo) {
+    public Spedizione(String partenza, String arrivo, Double tempoPrevisto, Double tempoEffettivo) {
         this.partenza = partenza;
         this.arrivo = arrivo;
         this.tempoPrevisto = tempoPrevisto;
@@ -43,19 +42,19 @@ public class Spedizione {
         this.arrivo = arrivo;
     }
 
-    public String getTempoPrevisto() {
+    public Double getTempoPrevisto() {
         return tempoPrevisto;
     }
 
-    public void setTempoPrevisto(String tempoPrevisto) {
+    public void setTempoPrevisto(Double tempoPrevisto) {
         this.tempoPrevisto = tempoPrevisto;
     }
 
-    public String getTempoEffettivo() {
+    public Double getTempoEffettivo() {
         return tempoEffettivo;
     }
 
-    public void setTempoEffettivo(String tempoEffettivo) {
+    public void setTempoEffettivo(Double tempoEffettivo) {
         this.tempoEffettivo = tempoEffettivo;
     }
 

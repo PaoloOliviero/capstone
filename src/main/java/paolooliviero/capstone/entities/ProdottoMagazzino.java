@@ -12,6 +12,8 @@ public class ProdottoMagazzino {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Integer quantita;
+    private LocalDate dataIngresso;
 
     @ManyToOne
     private Prodotto prodotto;
@@ -22,9 +24,6 @@ public class ProdottoMagazzino {
 
     @ManyToOne
     private ProdottoMagazzino prodottoMagazzino;
-
-    private Integer quantita;
-    private LocalDate dataIngresso;
 
 
     public ProdottoMagazzino() {

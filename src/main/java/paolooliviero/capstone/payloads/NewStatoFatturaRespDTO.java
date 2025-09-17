@@ -1,4 +1,4 @@
-/*package paolooliviero.capstone.payloads;
+package paolooliviero.capstone.payloads;
 
 import java.time.LocalDate;
 
@@ -8,4 +8,4 @@ public record NewStatoFatturaRespDTO(
         Double importo
 ) { }
 
- */
+

@@ -17,6 +17,8 @@ public class Magazzino {
     private List<ProdottoMagazzino> prodottiinMagazzino;
     @OneToMany(mappedBy = "magazzino")
     private List<MovimentoMagazzino> movimentoMagazzino;
+    @OneToMany(mappedBy = "magazzino")
+    private List<Spedizione> spedizione;
 
     public Magazzino() {}
 

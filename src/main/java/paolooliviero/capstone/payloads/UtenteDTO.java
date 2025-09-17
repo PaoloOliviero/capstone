@@ -1,4 +1,4 @@
-/*package paolooliviero.capstone.payloads;
+package paolooliviero.capstone.payloads;
 
 import java.util.Set;
 
@@ -6,4 +6,4 @@ public record UtenteDTO(Long id, String username, String email, String nome, Str
 
 {}
 
- */
+

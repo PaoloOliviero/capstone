@@ -15,7 +15,7 @@ public class Prodotto {
     private String nome;
     private double prezzoUnitario;
     private double weight;
-    private double categoria;
+    private String categoria;
     @OneToMany(mappedBy = "prodotto")
     private List<ProdottoMagazzino> magazziniAssociati;
     @OneToMany(mappedBy = "prodotto")
@@ -27,7 +27,7 @@ public class Prodotto {
 
     public Prodotto() {}
 
-    public Prodotto(double prezzoUnitario, String nome, double weight, double categoria, List<ProdottoMagazzino> magazziniAssociati, List<MovimentoMagazzino> movimentoMagazzino, OrdineCliente ordineCliente) {
+    public Prodotto(double prezzoUnitario, String nome, double weight, String categoria, List<ProdottoMagazzino> magazziniAssociati, List<MovimentoMagazzino> movimentoMagazzino, OrdineCliente ordineCliente) {
         this.prezzoUnitario = prezzoUnitario;
         this.nome = nome;
         this.weight = weight;
@@ -69,11 +69,11 @@ public class Prodotto {
         this.weight = weight;
     }
 
-    public double getCategoria() {
+    public String getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(double categoria) {
+    public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
 

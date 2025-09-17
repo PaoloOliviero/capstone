@@ -1,12 +1,11 @@
 package paolooliviero.capstone.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import paolooliviero.capstone.entities.Prodotto;
 import paolooliviero.capstone.entities.SedeCliente;
-import paolooliviero.capstone.entities.Spedizione;
 
 import java.util.Optional;
 
-public interface SpedizioneRepository extends JpaRepository<Spedizione, Long> {
-    Optional<Spedizione> findById(long id);
+public interface SedeClienteRepository extends JpaRepository<SedeCliente, Long> {
+    Optional<SedeCliente> findById(long id);
 }
-

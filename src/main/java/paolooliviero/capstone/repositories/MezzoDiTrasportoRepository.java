@@ -5,8 +5,6 @@ import paolooliviero.capstone.entities.Cliente;
 
 import java.util.Optional;
 
-public interface FatturaRepository extends JpaRepository<Cliente, Long> {
+public interface MezzoDiTrasportoRepository extends JpaRepository<Cliente, Long> {
     Optional<Cliente> findById(long id);
 }
-
-
