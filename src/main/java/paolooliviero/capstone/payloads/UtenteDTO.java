@@ -1,8 +1,9 @@
 package paolooliviero.capstone.payloads;
 
+import java.util.List;
 import java.util.Set;
 
-public record UtenteDTO(Long id, String username, String email, String nome, String cognome, Set<String> ruoli)
+public record UtenteDTO(Long id, String email, String nome, String cognome, String password,  List<String> ruoli)
 
 {}
 

@@ -1,7 +1,6 @@
 package paolooliviero.capstone.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import paolooliviero.capstone.entities.Spedizione;
 import paolooliviero.capstone.entities.StatoFattura;
 
 import java.util.Optional;

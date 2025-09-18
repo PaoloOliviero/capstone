@@ -11,8 +11,8 @@ public class Magazzino {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private double capacitàTotale;
-    private double capacitàOccupata;
+    private double capacitaTotale;
+    private double capacitaOccupata;
     @OneToMany(mappedBy = "magazzino")
     private List<ProdottoMagazzino> prodottiinMagazzino;
     @OneToMany(mappedBy = "magazzino")
@@ -23,18 +23,18 @@ public class Magazzino {
     public Magazzino() {}
 
     public Magazzino(double capacitàTotale, double capacitàOccupata, List<ProdottoMagazzino> prodottiinMagazzino, List<MovimentoMagazzino> movimentoMagazzino) {
-        this.capacitàTotale = capacitàTotale;
-        this.capacitàOccupata = capacitàOccupata;
+        this.capacitaTotale = capacitaTotale;
+        this.capacitaOccupata = capacitaOccupata;
         this.prodottiinMagazzino = prodottiinMagazzino;
         this.movimentoMagazzino = movimentoMagazzino;
     }
 
-    public double getCapacitàTotale() {
-        return capacitàTotale;
+    public double getCapacitaTotale() {
+        return capacitaTotale;
     }
 
-    public void setCapacitàTotale(double capacitàTotale) {
-        this.capacitàTotale = capacitàTotale;
+    public void setCapacitaTotale(double capacitaTotale) {
+        this.capacitaTotale = capacitaTotale;
     }
 
     public long getId() {
@@ -45,12 +45,12 @@ public class Magazzino {
         this.id = id;
     }
 
-    public double getCapacitàOccupata() {
-        return capacitàOccupata;
+    public double getCapacitaOccupata() {
+        return capacitaOccupata;
     }
 
-    public void setCapacitàOccupata(double capacitàOccupata) {
-        this.capacitàOccupata = capacitàOccupata;
+    public void setCapacitaOccupata(double capacitaOccupata) {
+        this.capacitaOccupata = capacitaOccupata;
     }
 
     public List<ProdottoMagazzino> getProdottiinMagazzino() {

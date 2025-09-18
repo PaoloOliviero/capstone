@@ -11,7 +11,7 @@ import java.util.List;
 public class StatoFattura {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @Column(nullable = false)
     private String nome;
@@ -27,7 +27,7 @@ public class StatoFattura {
         this.nome = nome;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 

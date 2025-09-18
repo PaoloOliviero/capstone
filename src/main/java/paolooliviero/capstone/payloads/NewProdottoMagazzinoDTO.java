@@ -14,8 +14,6 @@ public record NewProdottoMagazzinoDTO (
         @Valid
         NewProdottoDTO prodotto,
         @Valid
-        NewMagazzinoDTO magazzino,
-        @Valid
-        NewProdottoMagazzinoDTO prodottoMagazzino
+        NewMagazzinoDTO magazzino
 ) {
 }

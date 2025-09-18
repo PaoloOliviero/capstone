@@ -45,6 +45,10 @@ public class Carico {
         this.descrizione = descrizione;
     }
 
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
     public double getVolume() {
         return volume;
     }

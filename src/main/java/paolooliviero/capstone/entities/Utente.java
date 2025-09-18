@@ -2,11 +2,11 @@ package paolooliviero.capstone.entities;
 
 import jakarta.persistence.*;
 import lombok.ToString;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @ToString
@@ -15,9 +15,6 @@ public class Utente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
-    private String username;
 
     @Column(nullable = false)
     private String email;
@@ -33,10 +30,12 @@ public class Utente {
             joinColumns = @JoinColumn(name = "utente_id"),
             inverseJoinColumns = @JoinColumn(name = "ruolo_id")
     )
-    private List<Ruolo> ruoli = new ArrayList<>();
+    private List<Ruolo> ruoli;
+
+    public Utente() {
+    }
 
     public Utente(String username, String email, String nome, String cognome, String password, String avatar, List<Ruolo> ruoli) {
-        this.username = username;
         this.email = email;
         this.nome = nome;
         this.cognome = cognome;
@@ -45,9 +44,6 @@ public class Utente {
         this.ruoli = ruoli;
     }
 
-    public Utente() {
-
-    }
 
     public Long getId() {
         return id;
@@ -101,19 +97,16 @@ public class Utente {
         this.email = email;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return ruoli.stream()
+                .map(ruolo -> new SimpleGrantedAuthority(ruolo.getNome()))
+                .collect(Collectors.toList());
     }
 
     @Override
     public String toString() {
         return "Utente{" +
                 "id=" + id +
-                ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", nome='" + nome + '\'' +
                 ", cognome='" + cognome + '\'' +
