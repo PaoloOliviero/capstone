@@ -75,4 +75,12 @@ public class ProdottoMagazzino {
     public void setDataIngresso(LocalDate dataIngresso) {
         this.dataIngresso = dataIngresso;
     }
+
+    public Magazzino getMagazzino() {
+        return magazzino;
+    }
+
+    public void setMagazzino(Magazzino magazzino) {
+        this.magazzino = magazzino;
+    }
 }

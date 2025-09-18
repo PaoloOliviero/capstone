@@ -12,8 +12,8 @@ public class EventoMancanzaProdotto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDate periodoiniziale;
-    private LocalDate periodofinale;
+    private LocalDate periodoIniziale;
+    private LocalDate periodoFinale;
     @ManyToOne
     private Utente scopertoda;
     @ManyToOne
@@ -23,8 +23,8 @@ public class EventoMancanzaProdotto {
     {}
 
     public EventoMancanzaProdotto(LocalDate periodoiniziale, LocalDate periodofinale, Utente scopertoda, ProdottoMagazzino prodottoMagazzino) {
-        this.periodoiniziale = periodoiniziale;
-        this.periodofinale = periodofinale;
+        this.periodoIniziale = periodoiniziale;
+        this.periodoFinale = periodofinale;
         this.scopertoda = scopertoda;
         this.prodottoMagazzino = prodottoMagazzino;
 
@@ -38,20 +38,20 @@ public class EventoMancanzaProdotto {
         this.id = id;
     }
 
-    public LocalDate getPeriodoiniziale() {
-        return periodoiniziale;
+    public LocalDate getPeriodoIniziale() {
+        return periodoIniziale;
     }
 
-    public void setPeriodoiniziale(LocalDate periodoiniziale) {
-        this.periodoiniziale = periodoiniziale;
+    public void setPeriodoIniziale(LocalDate periodoiniziale) {
+        this.periodoIniziale = periodoiniziale;
     }
 
-    public LocalDate getPeriodofinale() {
-        return periodofinale;
+    public LocalDate getPeriodoFinale() {
+        return periodoFinale;
     }
 
-    public void setPeriodofinale(LocalDate periodofinale) {
-        this.periodofinale = periodofinale;
+    public void setPeriodoFinale(LocalDate periodofinale) {
+        this.periodoFinale = periodofinale;
     }
 
     public Utente getScopertoda() {

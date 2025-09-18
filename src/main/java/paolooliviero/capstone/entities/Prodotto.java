@@ -100,4 +100,5 @@ public class Prodotto {
     public void setOrdineCliente(OrdineCliente ordineCliente) {
         this.ordineCliente = ordineCliente;
     }
+
 }

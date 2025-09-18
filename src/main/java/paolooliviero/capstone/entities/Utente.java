@@ -102,19 +102,6 @@ public class Utente {
                 .map(ruolo -> new SimpleGrantedAuthority(ruolo.getNome()))
                 .collect(Collectors.toList());
     }
-
-    @Override
-    public String toString() {
-        return "Utente{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", nome='" + nome + '\'' +
-                ", cognome='" + cognome + '\'' +
-                ", password='" + password + '\'' +
-                ", avatar='" + avatar + '\'' +
-                ", ruoli=" + ruoli +
-                '}';
-    }
 }
 
 
