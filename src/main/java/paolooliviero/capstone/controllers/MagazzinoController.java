@@ -4,6 +4,7 @@ import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,7 @@ public class MagazzinoController {
         return magazzinoService.findAll(page, size, sortBy);
     }
 
-    @PostMapping("/register")
+    @PostMapping("/creamagazzino")
     @ResponseStatus(HttpStatus.CREATED)
     public NewMagazzinoRespDTO save(@RequestBody @Validated NewMagazzinoDTO payload, BindingResult validationResult) {
         if (validationResult.hasErrors()) {
@@ -42,7 +43,7 @@ public class MagazzinoController {
     }
 
     @GetMapping("/{magazzinoId}")
-//    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Magazzino getById(@PathVariable long magazzinoId) {
         return magazzinoService.findById(magazzinoId);
     }

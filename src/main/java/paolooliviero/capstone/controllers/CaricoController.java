@@ -28,7 +28,7 @@ public class CaricoController {
         return caricoService.findAll(page, size, sortBy);
     }
 
-    @PostMapping("/register")
+    @PostMapping("/creacarico")
     @ResponseStatus(HttpStatus.CREATED)
     public NewCaricoRespDTO save(@RequestBody @Validated NewCaricoDTO payload, BindingResult validationResult) {
         if (validationResult.hasErrors()) {

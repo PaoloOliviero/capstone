@@ -31,7 +31,7 @@ public class FatturaController {
         return (Page<Fattura>) this.fatturaService.findAll(page, size, sortBy);
     }
 
-    @PostMapping()
+    @PostMapping("/creafattura")
     @ResponseStatus(HttpStatus.CREATED)
 //    @PreAuthorize("hasAuthority('')")
     public NewFatturaRespDTO save(@RequestBody @Validated NewFatturaDTO payload, BindingResult validationResult) {

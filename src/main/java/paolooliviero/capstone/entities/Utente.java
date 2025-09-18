@@ -24,7 +24,7 @@ public class Utente {
     private String password;
     private String avatar;
 
-    @ManyToMany
+    @ManyToMany (fetch = FetchType.EAGER)
     @JoinTable(
             name = "utente_ruolo",
             joinColumns = @JoinColumn(name = "utente_id"),

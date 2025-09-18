@@ -31,7 +31,7 @@ public class ClienteController {
         return clienteService.findAll(page, size, sortBy);
     }
 
-    @PostMapping("/register")
+    @PostMapping("/creacliente")
     @ResponseStatus(HttpStatus.CREATED)
     public NewClienteRespDTO save(@RequestBody @Validated NewClienteDTO payload, BindingResult validationResult) {
         if (validationResult.hasErrors()) {

@@ -54,8 +54,8 @@ public class UtenteService {
 
     public Utente save(UtenteDTO payload) {
         // 1. Verifico che l'email non sia già in uso
-        this.utenteRepository.findByEmail(payload.email()).ifPresent(user -> {
-            throw new BadRequestException("L'email " + user.getEmail() + " è già in uso!");
+        this.utenteRepository.findByEmail(payload.email()).ifPresent(utente -> {
+            throw new BadRequestException("L'email " + utente.getEmail() + " è già in uso!");
         });
 
         List<Ruolo> ruoliEntity = payload.ruoli().stream()
