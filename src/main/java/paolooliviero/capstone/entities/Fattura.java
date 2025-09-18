@@ -1,5 +1,6 @@
 package paolooliviero.capstone.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.ToString;
 
@@ -14,6 +15,8 @@ public class Fattura {
     private LocalDate data;
     private double importo;
     @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    @JsonIgnore
     private Cliente cliente;
     @ManyToOne
     @JoinColumn(name = "statoFattura_id")
@@ -50,5 +53,21 @@ public class Fattura {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public StatoFattura getStatoFattura() {
+        return statoFattura;
+    }
+
+    public void setStatoFattura(StatoFattura statoFattura) {
+        this.statoFattura = statoFattura;
     }
 }

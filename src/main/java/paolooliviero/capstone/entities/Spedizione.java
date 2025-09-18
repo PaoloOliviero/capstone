@@ -14,7 +14,7 @@ public class Spedizione {
     private Double tempoPrevisto;
     private Double tempoEffettivo;
     @ManyToOne
-    private Magazzino magazzinoPartenza;
+    private Magazzino magazzino;
 
 
     public Spedizione () {}

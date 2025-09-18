@@ -1,4 +1,6 @@
 package paolooliviero.capstone.payloads;
 
-public record NewFatturaRespDTO () {
+import java.time.LocalDate;
+
+public record NewFatturaRespDTO (Long id, LocalDate data, Double importo) {
 }
