@@ -2,9 +2,10 @@ package paolooliviero.capstone.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import paolooliviero.capstone.entities.Cliente;
+import paolooliviero.capstone.entities.MezzoDiTrasporto;
 
 import java.util.Optional;
 
-public interface MezzoDiTrasportoRepository extends JpaRepository<Cliente, Long> {
-    Optional<Cliente> findById(long id);
+public interface MezzoDiTrasportoRepository extends JpaRepository<MezzoDiTrasporto, Long> {
+    Optional<MezzoDiTrasporto> findById(long id);
 }

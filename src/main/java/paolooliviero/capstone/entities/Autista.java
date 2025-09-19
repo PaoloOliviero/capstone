@@ -13,7 +13,6 @@ public class Autista {
     private long id;
     private String nome;
     private String cognome;
-    private boolean disponibile;
     private String telefono;
     @OneToMany(mappedBy = "autista")
     private List<MezzoDiTrasporto> mezzoDiTrasporto;
@@ -24,7 +23,6 @@ public class Autista {
     public Autista(String nome, String cognome, boolean disponibile, String telefono) {
         this.nome = nome;
         this.cognome = cognome;
-        this.disponibile = disponibile;
         this.telefono = telefono;
     }
 
@@ -50,14 +48,6 @@ public class Autista {
 
     public void setCognome(String cognome) {
         this.cognome = cognome;
-    }
-
-    public boolean isDisponibile() {
-        return disponibile;
-    }
-
-    public void setDisponibile(boolean disponibile) {
-        this.disponibile = disponibile;
     }
 
     public String getTelefono() {

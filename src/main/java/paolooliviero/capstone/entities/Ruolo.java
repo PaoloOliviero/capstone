@@ -1,5 +1,6 @@
 package paolooliviero.capstone.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.ToString;
 
@@ -7,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@ToString
+@ToString(exclude = "utenti")
 @Table(name = "ruoli")
 public class Ruolo {
     @Id
@@ -18,6 +19,7 @@ public class Ruolo {
     private String nome;
 
     @ManyToMany(mappedBy = "ruoli")
+    @JsonIgnore
     private List<Utente> utenti = new ArrayList<>();
 
     public Ruolo() {

@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 import paolooliviero.capstone.entities.EventoMancanzaProdotto;
 import paolooliviero.capstone.entities.ProdottoMagazzino;
 import paolooliviero.capstone.entities.Utente;
@@ -14,6 +15,7 @@ import paolooliviero.capstone.repositories.EventoMancanzaProdottoRepository;
 import paolooliviero.capstone.repositories.ProdottoMagazzinoRepository;
 import paolooliviero.capstone.repositories.UtenteRepository;
 
+@Service
 public class EventoMancanzaProdottoService {
 
     @Autowired

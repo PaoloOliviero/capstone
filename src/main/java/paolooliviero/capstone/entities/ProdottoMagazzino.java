@@ -22,16 +22,12 @@ public class ProdottoMagazzino {
     @JoinColumn(name = "magazzino_id")
     private Magazzino magazzino;
 
-    @ManyToOne
-    private ProdottoMagazzino prodottoMagazzino;
-
 
     public ProdottoMagazzino() {
     }
 
     public ProdottoMagazzino(Prodotto prodotto, ProdottoMagazzino prodottoMagazzino, Integer quantita, LocalDate dataIngresso) {
         this.prodotto = prodotto;
-        this.prodottoMagazzino = prodottoMagazzino;
         this.quantita = quantita;
         this.dataIngresso = dataIngresso;
     }
@@ -52,13 +48,6 @@ public class ProdottoMagazzino {
         this.prodotto = prodotto;
     }
 
-    public ProdottoMagazzino getProdottoMagazzino() {
-        return prodottoMagazzino;
-    }
-
-    public void setProdottoMagazzino(ProdottoMagazzino prodottoMagazzino) {
-        this.prodottoMagazzino = prodottoMagazzino;
-    }
 
     public Integer getQuantita() {
         return quantita;

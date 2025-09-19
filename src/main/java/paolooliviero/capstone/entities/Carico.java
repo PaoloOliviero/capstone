@@ -16,7 +16,7 @@ public class Carico {
     private String categoria;
     @OneToMany(mappedBy = "carico")
     private List<OrdineCliente> ordineCliente;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "mezzoDiTrasporto_id")
     private MezzoDiTrasporto mezzoDiTrasporto;
 
@@ -63,6 +63,26 @@ public class Carico {
 
     public void setTipoMerce(String tipoMerce) {
         this.categoria = tipoMerce;
+    }
+
+    public MezzoDiTrasporto getMezzoDiTrasporto() {
+        return mezzoDiTrasporto;
+    }
+
+    public void setMezzoDiTrasporto(MezzoDiTrasporto mezzoDiTrasporto) {
+        this.mezzoDiTrasporto = mezzoDiTrasporto;
+    }
+
+    public List<OrdineCliente> getOrdineCliente() {
+        return ordineCliente;
+    }
+
+    public void setOrdineCliente(List<OrdineCliente> ordineCliente) {
+        this.ordineCliente = ordineCliente;
+    }
+
+    public String getCategoria() {
+        return categoria;
     }
 }
 

@@ -12,24 +12,29 @@ public class MovimentoMagazzino {
     private long id;
     private double quantity;
     @ManyToOne
-    @JoinColumn(name = "prodotto_id")
-    private Prodotto prodotto;
-    @ManyToOne
     @JoinColumn(name = "magazzino_id")
     private Magazzino magazzino;
     @ManyToOne
     private ProdottoMagazzino prodottoMagazzino;
     @ManyToOne
     private Utente registratoDa;
+    @ManyToOne
+    @JoinColumn(name = "mezzo_id")
+    private MezzoDiTrasporto mezzoDiTrasporto;
+    @OneToOne(mappedBy = "movimentoAssociato")
+    private RichiestaProdotto richiestaOrigine;
+    @ManyToOne
+    private Prodotto prodotto;
+
 
     public MovimentoMagazzino() {}
 
     public MovimentoMagazzino(double quantity, Prodotto prodotto, Magazzino magazzino, ProdottoMagazzino prodottoMagazzino, Utente registratoDa) {
         this.quantity = quantity;
-        this.prodotto = prodotto;
         this.magazzino = magazzino;
         this.prodottoMagazzino = prodottoMagazzino;
         this.registratoDa = registratoDa;
+
     }
 
     public long getId() {
@@ -48,13 +53,6 @@ public class MovimentoMagazzino {
         this.quantity = quantity;
     }
 
-    public Prodotto getProdotto() {
-        return prodotto;
-    }
-
-    public void setProdotto(Prodotto prodotto) {
-        this.prodotto = prodotto;
-    }
 
     public Magazzino getMagazzino() {
         return magazzino;

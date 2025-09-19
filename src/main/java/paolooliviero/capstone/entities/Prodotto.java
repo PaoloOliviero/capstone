@@ -25,6 +25,7 @@ public class Prodotto {
     private OrdineCliente ordineCliente;
 
 
+
     public Prodotto() {}
 
     public Prodotto(double prezzoUnitario, String nome, double weight, String categoria, List<ProdottoMagazzino> magazziniAssociati, List<MovimentoMagazzino> movimentoMagazzino, OrdineCliente ordineCliente) {

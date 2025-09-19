@@ -9,7 +9,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
-@ToString
+@ToString(exclude = "ruoli")
 @Table(name = "utenti")
 public class Utente {
     @Id

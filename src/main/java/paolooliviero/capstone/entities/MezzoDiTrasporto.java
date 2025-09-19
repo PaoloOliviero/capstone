@@ -14,18 +14,18 @@ public class MezzoDiTrasporto {
     private long id;
     private int capienzaMassima;
     private StatoMezzo statoMezzo;
-    @OneToMany(mappedBy = "mezzoDiTrasporto")
-    private List<Carico> carichi;
     @ManyToOne
     @JoinColumn(name = "autista_id")
     private Autista autista;
+    @OneToMany(mappedBy = "mezzoDiTrasporto")
+    private List<MovimentoMagazzino> movimenti;
+
 
     public MezzoDiTrasporto() {}
 
     public MezzoDiTrasporto(int capienzaMassima, StatoMezzo statoMezzo, List<Carico> carichi, Autista autista) {
         this.capienzaMassima = capienzaMassima;
         this.statoMezzo = statoMezzo;
-        this.carichi = carichi;
         this.autista = autista;
     }
 
@@ -53,13 +53,6 @@ public class MezzoDiTrasporto {
         this.statoMezzo = statoMezzo;
     }
 
-    public List<Carico> getCarichi() {
-        return carichi;
-    }
-
-    public void setCarichi(List<Carico> carichi) {
-        this.carichi = carichi;
-    }
 
     public Autista getAutista() {
         return autista;

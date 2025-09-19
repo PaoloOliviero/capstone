@@ -105,6 +105,30 @@ public class Cliente {
     public void setTelefonoContatto(String telefonoContatto) {
         this.telefonoContatto = telefonoContatto;
     }
+
+    public List<Fattura> getFatture() {
+        return fatture;
+    }
+
+    public void setFatture(List<Fattura> fatture) {
+        this.fatture = fatture;
+    }
+
+    public List<SedeCliente> getSedeCliente() {
+        return sedeCliente;
+    }
+
+    public void setSedeCliente(List<SedeCliente> sedeCliente) {
+        this.sedeCliente = sedeCliente;
+    }
+
+    public List<OrdineCliente> getOrdineCliente() {
+        return ordineCliente;
+    }
+
+    public void setOrdineCliente(List<OrdineCliente> ordineCliente) {
+        this.ordineCliente = ordineCliente;
+    }
 }
 
 
