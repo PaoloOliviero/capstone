@@ -59,5 +59,26 @@ public class ClienteController {
     public void getByIdAndDelete(@PathVariable long clienteId) {
         this.clienteService.findByIdAndDelete(clienteId);
     }
+
+    @GetMapping("/filtro/fatturato")
+    public List<Cliente> filtraPerFatturato(@RequestParam int fatturatoMax) {
+        return clienteService.filterToFatturato(fatturatoMax);
+    }
+
+    @GetMapping("/filtro/data-inserimento")
+    public List<Cliente> filtraPerDataInserimento(@RequestParam LocalDate data) {
+        return clienteService.filterToDataInserimento(data);
+    }
+
+    @GetMapping("/filtro/ultimo-contatto")
+    public List<Cliente> filtraPerUltimoContatto(@RequestParam LocalDate data) {
+        return clienteService.filterToDataUltimoContatto(data);
+    }
+
+    @GetMapping("/filtro/nome")
+    public List<Cliente> filtraPerRagioneSociale(@RequestParam String ragioneSociale) {
+        return clienteService.filterToRagioneSociale(ragioneSociale);
+    }
+
 }
 

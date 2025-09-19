@@ -12,6 +12,9 @@ import paolooliviero.capstone.exceptions.NotFoundException;
 import paolooliviero.capstone.payloads.NewClienteDTO;
 import paolooliviero.capstone.repositories.ClienteRepository;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Service
 @Slf4j
 public class ClienteService {
@@ -61,6 +64,24 @@ public class ClienteService {
         return clienteRepository.save(found);
     }
 
+    public List<Cliente> filterToFatturato(int fatturatoAnnuale) {
+        List<Cliente> clientiFiltrati = clienteRepository.filterToFatturatoAnnuale(fatturatoAnnuale);
+        return clientiFiltrati;
+    }
 
+    public List<Cliente> filterToDataInserimento(LocalDate dataInserimento) {
+        List<Cliente> clientiFiltrati = clienteRepository.filterToDataInserimento(dataInserimento);
+        return clientiFiltrati;
+    }
+
+    public List<Cliente> filterToDataUltimoContatto(LocalDate dataUltimoContatto) {
+        List<Cliente> clientiFiltrati = clienteRepository.filterToDataUltimoContatto(dataUltimoContatto);
+        return clientiFiltrati;
+    }
+
+    public List<Cliente> filterToRagioneSociale (String ragioneSociale) {
+        List<Cliente> clientiFiltrati = clienteRepository.filterToRagioneSociale(ragioneSociale);
+        return clientiFiltrati;
+    }
 
 }
