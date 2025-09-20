@@ -1,5 +1,6 @@
 package paolooliviero.capstone.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.ToString;
 
@@ -24,6 +25,7 @@ public class RichiestaProdotto {
     private ProdottoMagazzino prodottoMagazzino;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "magazzino_id")
     private Magazzino magazzino;
 
@@ -34,6 +36,12 @@ public class RichiestaProdotto {
     @OneToOne
     @JoinColumn(name = "movimento_id")
     private MovimentoMagazzino movimentoAssociato;
+
+    @OneToOne
+    @JoinColumn(name = "ordine_cliente_id")
+    private OrdineCliente ordineCliente;
+
+
 
     public int getQuantitaRichiesta() {
         return quantitaRichiesta;
@@ -89,6 +97,14 @@ public class RichiestaProdotto {
 
     public void setMovimentoAssociato(MovimentoMagazzino movimentoAssociato) {
         this.movimentoAssociato = movimentoAssociato;
+    }
+
+    public OrdineCliente getOrdineCliente() {
+        return ordineCliente;
+    }
+
+    public void setOrdineCliente(OrdineCliente ordineCliente) {
+        this.ordineCliente = ordineCliente;
     }
 }
 

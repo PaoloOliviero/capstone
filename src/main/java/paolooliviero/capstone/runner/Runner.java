@@ -53,7 +53,7 @@ public class Runner {
                 Cliente cliente1 = new Cliente();
                 cliente1.setRagioneSociale("Azienda Berlusconi");
                 cliente1.setEmail("alfa@azienda.com");
-                cliente1.setTelefonoContatto("02-1234567");
+                cliente1.setTelefonoContatto("222222222");
                 cliente1.setPartitaIva("IT12345678901");
                 cliente1.setFatturatoAnnuale(1_000_000.0);
                 clienteRepo.save(cliente1);
@@ -61,7 +61,7 @@ public class Runner {
                 Cliente cliente2 = new Cliente();
                 cliente2.setRagioneSociale("Azienda Salvini");
                 cliente2.setEmail("beta@azienda.com");
-                cliente2.setTelefonoContatto("02-7654321");
+                cliente2.setTelefonoContatto("111111111");
                 cliente2.setPartitaIva("IT98765432109");
                 cliente2.setFatturatoAnnuale(2_500_000.0);
                 clienteRepo.save(cliente2);
@@ -73,7 +73,7 @@ public class Runner {
                     magazzinoRepo.save(magazzino);
 
                     ProdottoMagazzino pm = new ProdottoMagazzino();
-                    pm.setQuantita(50 * i);
+                    pm.setQuantitaDisponibile((double) (50 * i));
                     pm.setDataIngresso(LocalDate.now().minusDays(i));
                     pm.setProdotto(prodotto);
                     pm.setMagazzino(magazzino);
@@ -96,12 +96,12 @@ public class Runner {
 
                     Autista autista1 = new Autista();
                     autista1.setNome("Antonio Tagliani");
-                    autista1.setTelefono("3121234567");
+                    autista1.setTelefono("445455545454");
                     autistaRepo.save(autista1);
 
                     Autista autista2 = new Autista();
                     autista2.setNome("Luigi di Maio");
-                    autista2.setTelefono("3127654321");
+                    autista2.setTelefono("4234234234");
                     autistaRepo.save(autista2);
 
                     Carico carico1 = new Carico();

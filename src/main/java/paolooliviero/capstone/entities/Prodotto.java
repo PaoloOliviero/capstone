@@ -1,6 +1,7 @@
 package paolooliviero.capstone.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.ToString;
 
@@ -14,8 +15,9 @@ public class Prodotto {
     private long id;
     private String nome;
     private double prezzoUnitario;
-    private double weight;
+    private double volume;
     private String categoria;
+    @JsonIgnore
     @OneToMany(mappedBy = "prodotto")
     private List<ProdottoMagazzino> magazziniAssociati;
     @OneToMany(mappedBy = "prodotto")
@@ -28,10 +30,10 @@ public class Prodotto {
 
     public Prodotto() {}
 
-    public Prodotto(double prezzoUnitario, String nome, double weight, String categoria, List<ProdottoMagazzino> magazziniAssociati, List<MovimentoMagazzino> movimentoMagazzino, OrdineCliente ordineCliente) {
+    public Prodotto(double prezzoUnitario, String nome, double volume, String categoria, List<ProdottoMagazzino> magazziniAssociati, List<MovimentoMagazzino> movimentoMagazzino, OrdineCliente ordineCliente) {
         this.prezzoUnitario = prezzoUnitario;
         this.nome = nome;
-        this.weight = weight;
+        this.volume = volume;
         this.categoria = categoria;
         this.magazziniAssociati = magazziniAssociati;
         this.movimentoMagazzino = movimentoMagazzino;
@@ -62,12 +64,12 @@ public class Prodotto {
         this.prezzoUnitario = prezzoUnitario;
     }
 
-    public double getWeight() {
-        return weight;
+    public Double getVolume() {
+        return volume;
     }
 
-    public void setWeight(double weight) {
-        this.weight = weight;
+    public void setVolume(double volume) {
+        this.volume = volume;
     }
 
     public String getCategoria() {
@@ -101,5 +103,8 @@ public class Prodotto {
     public void setOrdineCliente(OrdineCliente ordineCliente) {
         this.ordineCliente = ordineCliente;
     }
+
+
+
 
 }

@@ -18,8 +18,12 @@ public class MezzoDiTrasporto {
     @JoinColumn(name = "autista_id")
     private Autista autista;
     @OneToMany(mappedBy = "mezzoDiTrasporto")
-    private List<MovimentoMagazzino> movimenti;
-
+    private List<MovimentoMagazzino> movimento;
+    @ManyToOne
+    @JoinColumn(name = "magazzino_partenza_id")
+    private Magazzino magazzino;
+    @OneToMany(mappedBy = "mezzoDiTrasporto", cascade = CascadeType.ALL)
+    private List<Carico> carichi;
 
     public MezzoDiTrasporto() {}
 
@@ -60,6 +64,30 @@ public class MezzoDiTrasporto {
 
     public void setAutista(Autista autista) {
         this.autista = autista;
+    }
+
+    public List<MovimentoMagazzino> getMovimento() {
+        return movimento;
+    }
+
+    public void setMovimento(List<MovimentoMagazzino> movimento) {
+        this.movimento = movimento;
+    }
+
+    public Magazzino getMagazzino() {
+        return magazzino;
+    }
+
+    public void setMagazzino(Magazzino magazzino) {
+        this.magazzino = magazzino;
+    }
+
+    public List<Carico> getCarichi() {
+        return carichi;
+    }
+
+    public void setCarichi(List<Carico> carichi) {
+        this.carichi = carichi;
     }
 }
 

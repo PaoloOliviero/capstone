@@ -12,8 +12,6 @@ import paolooliviero.capstone.payloads.NewFatturaDTO;
 import paolooliviero.capstone.payloads.NewFatturaRespDTO;
 import paolooliviero.capstone.service.FatturaService;
 
-import java.time.LocalDate;
-import java.util.List;
 
 @RestController
 @RequestMapping("/fatture")
@@ -39,7 +37,7 @@ public class FatturaController {
             throw new ValidationException("Errore");
         } else {
             Fattura newFattura = this.fatturaService.save(payload);
-            return new NewFatturaRespDTO(newFattura.getId(), newFattura.getData(),
+            return new NewFatturaRespDTO(newFattura.getId(), newFattura.getDataEmissione(),
                     newFattura.getImporto()
             );
         }

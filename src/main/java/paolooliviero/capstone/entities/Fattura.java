@@ -12,7 +12,7 @@ public class Fattura {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private LocalDate data;
+    private LocalDate dataEmissione;
     private double importo;
     @ManyToOne
     @JoinColumn(name = "cliente_id")
@@ -27,16 +27,8 @@ public class Fattura {
     }
 
     public Fattura(LocalDate data, double importo) {
-        this.data = data;
+        this.dataEmissione = dataEmissione;
         this.importo = importo;
-    }
-
-    public LocalDate getData() {
-        return data;
-    }
-
-    public void setData(LocalDate data) {
-        this.data = data;
     }
 
     public double getImporto() {
@@ -69,5 +61,13 @@ public class Fattura {
 
     public void setStatoFattura(StatoFattura statoFattura) {
         this.statoFattura = statoFattura;
+    }
+
+    public LocalDate getDataEmissione() {
+        return dataEmissione;
+    }
+
+    public void setDataEmissione(LocalDate dataEmissione) {
+        this.dataEmissione = dataEmissione;
     }
 }

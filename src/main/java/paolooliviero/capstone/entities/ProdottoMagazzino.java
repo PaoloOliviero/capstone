@@ -12,7 +12,7 @@ public class ProdottoMagazzino {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Integer quantita;
+    private Double quantitaDisponibile;
     private LocalDate dataIngresso;
 
     @ManyToOne
@@ -28,7 +28,7 @@ public class ProdottoMagazzino {
 
     public ProdottoMagazzino(Prodotto prodotto, ProdottoMagazzino prodottoMagazzino, Integer quantita, LocalDate dataIngresso) {
         this.prodotto = prodotto;
-        this.quantita = quantita;
+        this.quantitaDisponibile = quantitaDisponibile;
         this.dataIngresso = dataIngresso;
     }
 
@@ -49,12 +49,12 @@ public class ProdottoMagazzino {
     }
 
 
-    public Integer getQuantita() {
-        return quantita;
+    public Double getQuantitaDisponibile() {
+        return quantitaDisponibile;
     }
 
-    public void setQuantita(Integer quantita) {
-        this.quantita = quantita;
+    public void setQuantitaDisponibile(Double quantitaDisponibile) {
+        this.quantitaDisponibile = quantitaDisponibile;
     }
 
     public LocalDate getDataIngresso() {

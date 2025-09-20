@@ -38,9 +38,8 @@ public class FatturaService {
 
         Fattura newFattura = new Fattura();
         newFattura.setImporto(payload.importo());
-        newFattura.setData(payload.data());
+        newFattura.setDataEmissione(payload.dataEmissione());
         newFattura.setCliente(clienteRepository.findById(payload.id_cliente()).orElseThrow(() -> new NotFoundException(payload.id_cliente())));
-        newFattura.setStatoFattura(statoFatturaRepository.findById(payload.id_statoFattura()).orElseThrow(() -> new NotFoundException(payload.id_statoFattura())));
         return fatturaRepository.save(newFattura);
 
     }
@@ -63,7 +62,7 @@ public class FatturaService {
     public Fattura findByIdAndUpdate(long fatturaId, NewFatturaDTO payload) {
         Fattura found = this.findById(fatturaId);
 
-        found.setData(payload.data());
+        found.setDataEmissione(payload.dataEmissione());
         found.setImporto(payload.importo());
 
         return fatturaRepository.save(found);

@@ -2,6 +2,7 @@ package paolooliviero.capstone.entities;
 
 import jakarta.persistence.*;
 import lombok.ToString;
+import paolooliviero.capstone.enums.StatoOrdine;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -12,7 +13,8 @@ public class OrdineCliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String statoOrdine;
+    @Enumerated(EnumType.STRING)
+    private StatoOrdine statoOrdine;
     private LocalDate dataOrdine;
     private String indirizzoSpedizione;
     private String metodopagamento;
@@ -30,11 +32,15 @@ public class OrdineCliente {
     private Carico carico;
     @OneToMany(mappedBy = "ordineCliente")
     private List<Prodotto> prodotto;
+    @OneToOne(mappedBy = "ordineCliente")
+    private RichiestaProdotto richiestaProdotto;
+    @OneToMany(mappedBy = "ordineCliente")
+    private List<ProdottoOrdinatoCliente> prodottoOrdinatoCliente;
 
-    public OrdineCliente() {
-    }
 
-    public OrdineCliente(String statoOrdine, LocalDate dataOrdine, String indirizzoSpedizione, String metodopagamento, Fattura fattura, Spedizione spedizione, Cliente cliente, Carico carico, List<Prodotto> prodotto) {
+    public OrdineCliente() {}
+
+    public OrdineCliente(StatoOrdine statoOrdine, LocalDate dataOrdine, String indirizzoSpedizione, String metodopagamento, Fattura fattura, Spedizione spedizione, Cliente cliente, Carico carico, List<Prodotto> prodotto) {
         this.statoOrdine = statoOrdine;
         this.dataOrdine = dataOrdine;
         this.indirizzoSpedizione = indirizzoSpedizione;
@@ -44,22 +50,16 @@ public class OrdineCliente {
         this.cliente = cliente;
         this.carico = carico;
         this.prodotto = prodotto;
+        this.richiestaProdotto = richiestaProdotto;
+
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getStatoOrdine() {
-        return statoOrdine;
-    }
-
-    public void setStatoOrdine(String statoOrdine) {
-        this.statoOrdine = statoOrdine;
     }
 
     public LocalDate getDataOrdine() {
@@ -124,6 +124,30 @@ public class OrdineCliente {
 
     public void setProdotto(List<Prodotto> prodotto) {
         this.prodotto = prodotto;
+    }
+
+    public RichiestaProdotto getRichiestaProdotto() {
+        return richiestaProdotto;
+    }
+
+    public void setRichiestaProdotto(RichiestaProdotto richiestaProdotto) {
+        this.richiestaProdotto = richiestaProdotto;
+    }
+
+    public void setStatoOrdine(StatoOrdine statoOrdine) {
+        this.statoOrdine = statoOrdine;
+    }
+
+    public StatoOrdine getStatoOrdine() {
+        return statoOrdine;
+    }
+
+    public List<ProdottoOrdinatoCliente> getProdottoOrdinatoCliente() {
+        return prodottoOrdinatoCliente;
+    }
+
+    public void setProdottoOrdinatoCliente(List<ProdottoOrdinatoCliente> prodottoOrdinatoCliente) {
+        this.prodottoOrdinatoCliente = prodottoOrdinatoCliente;
     }
 }
 

@@ -77,5 +77,29 @@ public class MovimentoMagazzino {
     public void setRegistratoDa(Utente registratoDa) {
         this.registratoDa = registratoDa;
     }
+
+    public MezzoDiTrasporto getMezzoDiTrasporto() {
+        return mezzoDiTrasporto;
+    }
+
+    public void setMezzoDiTrasporto(MezzoDiTrasporto mezzoDiTrasporto) {
+        this.mezzoDiTrasporto = mezzoDiTrasporto;
+    }
+
+    public RichiestaProdotto getRichiestaOrigine() {
+        return richiestaOrigine;
+    }
+
+    public void setRichiestaOrigine(RichiestaProdotto richiestaOrigine) {
+        this.richiestaOrigine = richiestaOrigine;
+    }
+
+    public Prodotto getProdotto() {
+        return prodotto;
+    }
+
+    public void setProdotto(Prodotto prodotto) {
+        this.prodotto = prodotto;
+    }
 }
 

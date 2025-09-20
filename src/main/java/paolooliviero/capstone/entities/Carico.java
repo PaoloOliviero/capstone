@@ -16,9 +16,15 @@ public class Carico {
     private String categoria;
     @OneToMany(mappedBy = "carico")
     private List<OrdineCliente> ordineCliente;
-    @OneToOne
-    @JoinColumn(name = "mezzoDiTrasporto_id")
+    @ManyToOne
+    @JoinColumn(name = "mezzo_di_trasporto_id")
     private MezzoDiTrasporto mezzoDiTrasporto;
+    @OneToMany
+    private List<ProdottoOrdinatoCliente> prodottiOrdinati;
+    @OneToMany
+    private List<Prodotto> prodotti;
+
+
 
     public Carico ()
     {}
@@ -83,6 +89,22 @@ public class Carico {
 
     public String getCategoria() {
         return categoria;
+    }
+
+    public List<ProdottoOrdinatoCliente> getProdottiOrdinati() {
+        return prodottiOrdinati;
+    }
+
+    public void setProdottiOrdinati(List<ProdottoOrdinatoCliente> prodottiOrdinati) {
+        this.prodottiOrdinati = prodottiOrdinati;
+    }
+
+    public List<Prodotto> getProdotti() {
+        return prodotti;
+    }
+
+    public void setProdotti(List<Prodotto> prodotti) {
+        this.prodotti = prodotti;
     }
 }
 

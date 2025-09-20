@@ -8,13 +8,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import paolooliviero.capstone.entities.Cliente;
 import paolooliviero.capstone.entities.Magazzino;
-import paolooliviero.capstone.payloads.NewClienteDTO;
-import paolooliviero.capstone.payloads.NewClienteRespDTO;
 import paolooliviero.capstone.payloads.NewMagazzinoDTO;
 import paolooliviero.capstone.payloads.NewMagazzinoRespDTO;
-import paolooliviero.capstone.service.ClienteService;
 import paolooliviero.capstone.service.MagazzinoService;
 
 @RestController

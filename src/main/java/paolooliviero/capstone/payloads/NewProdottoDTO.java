@@ -12,7 +12,7 @@ public record NewProdottoDTO (
         @NotNull(message = "obbligatoria!")
         Double prezzoUnitario,
         @NotNull(message = "Weight obbligatoria")
-        Double weight,
+        Double volume,
         @NotEmpty(message = "Categoria obbligatoria")
         String categoria,
         @Valid
