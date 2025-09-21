@@ -1,5 +1,6 @@
 package paolooliviero.capstone.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.ToString;
 
@@ -17,6 +18,7 @@ public class MovimentoMagazzino {
     @ManyToOne
     private ProdottoMagazzino prodottoMagazzino;
     @ManyToOne
+    @JsonIgnore
     private Utente registratoDa;
     @ManyToOne
     @JoinColumn(name = "mezzo_id")

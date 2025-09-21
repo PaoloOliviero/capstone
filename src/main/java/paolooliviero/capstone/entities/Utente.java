@@ -1,5 +1,6 @@
 package paolooliviero.capstone.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,6 +22,7 @@ public class Utente {
 
     private String nome;
     private String cognome;
+    @JsonIgnore
     private String password;
     private String avatar;
 

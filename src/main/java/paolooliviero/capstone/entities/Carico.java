@@ -1,5 +1,6 @@
 package paolooliviero.capstone.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.ToString;
 
@@ -18,11 +19,13 @@ public class Carico {
     private List<OrdineCliente> ordineCliente;
     @ManyToOne
     @JoinColumn(name = "mezzo_di_trasporto_id")
+    @JsonIgnore
     private MezzoDiTrasporto mezzoDiTrasporto;
     @OneToMany
     private List<ProdottoOrdinatoCliente> prodottiOrdinati;
     @OneToMany
-    private List<Prodotto> prodotti;
+    @JsonIgnore
+    private List<ProdottoMagazzino> prodottoMagazzino;
 
 
 
@@ -99,12 +102,12 @@ public class Carico {
         this.prodottiOrdinati = prodottiOrdinati;
     }
 
-    public List<Prodotto> getProdotti() {
-        return prodotti;
+    public List<ProdottoMagazzino> getProdottoMagazzino() {
+        return prodottoMagazzino;
     }
 
-    public void setProdotti(List<Prodotto> prodotti) {
-        this.prodotti = prodotti;
+    public void setProdottoMagazzino(List<ProdottoMagazzino> prodottoMagazzino) {
+        this.prodottoMagazzino = prodottoMagazzino;
     }
 }
 

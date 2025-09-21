@@ -19,14 +19,13 @@ public record NewRichiestaProdottoDTO(
         @Size(min = 5, max = 200, message = "La motivazione deve essere tra 5 e 200 caratteri")
         String motivazione,
 
-        @NotNull(message = "Il magazzino è obbligatorio")
-        NewMagazzinoDTO magazzino,
-
         @NotNull(message = "Il richiedente è obbligatorio")
-        UtenteDTO richiestoDa,
+        Long richiestoDaId,
 
         NewMovimentoMagazzinoDTO movimentoAssociato,
 
-        Long mezzoDiTrasportoId
+        Long mezzoDiTrasportoId,
+
+        Long magazzinoId
 ) {
 }

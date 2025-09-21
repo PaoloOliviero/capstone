@@ -1,5 +1,6 @@
 package paolooliviero.capstone.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.ToString;
 import paolooliviero.capstone.enums.StatoMezzo;
@@ -13,16 +14,19 @@ public class MezzoDiTrasporto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private int capienzaMassima;
+    @Enumerated(EnumType.STRING)
     private StatoMezzo statoMezzo;
     @ManyToOne
     @JoinColumn(name = "autista_id")
     private Autista autista;
     @OneToMany(mappedBy = "mezzoDiTrasporto")
+    @JsonIgnore
     private List<MovimentoMagazzino> movimento;
     @ManyToOne
-    @JoinColumn(name = "magazzino_partenza_id")
+    @JoinColumn(name = "magazzino_id")
     private Magazzino magazzino;
     @OneToMany(mappedBy = "mezzoDiTrasporto", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Carico> carichi;
 
     public MezzoDiTrasporto() {}

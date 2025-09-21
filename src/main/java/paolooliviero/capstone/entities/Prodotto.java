@@ -17,10 +17,11 @@ public class Prodotto {
     private double prezzoUnitario;
     private double volume;
     private String categoria;
-    @JsonIgnore
     @OneToMany(mappedBy = "prodotto")
+    @JsonIgnore
     private List<ProdottoMagazzino> magazziniAssociati;
     @OneToMany(mappedBy = "prodotto")
+    @JsonIgnore
     private List<MovimentoMagazzino> movimentoMagazzino;
     @ManyToOne
     @JoinColumn(name="ordineCliente_id")

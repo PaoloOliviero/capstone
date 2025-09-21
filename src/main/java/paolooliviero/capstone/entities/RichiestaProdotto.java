@@ -38,9 +38,12 @@ public class RichiestaProdotto {
     private MovimentoMagazzino movimentoAssociato;
 
     @OneToOne
-    @JoinColumn(name = "ordine_cliente_id")
+    @JoinColumn(name = "ordinecliente_id")
     private OrdineCliente ordineCliente;
 
+    @OneToOne
+    @JoinColumn(name = "eventomancanzaprodotto_id")
+    private EventoMancanzaProdotto eventoMancanzaProdotto;
 
 
     public int getQuantitaRichiesta() {
@@ -105,6 +108,14 @@ public class RichiestaProdotto {
 
     public void setOrdineCliente(OrdineCliente ordineCliente) {
         this.ordineCliente = ordineCliente;
+    }
+
+    public EventoMancanzaProdotto getEventoMancanzaProdotto() {
+        return eventoMancanzaProdotto;
+    }
+
+    public void setEventoMancanzaProdotto(EventoMancanzaProdotto eventoMancanzaProdotto) {
+        this.eventoMancanzaProdotto = eventoMancanzaProdotto;
     }
 }
 

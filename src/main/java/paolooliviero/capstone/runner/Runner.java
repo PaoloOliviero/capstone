@@ -46,7 +46,7 @@ public class Runner {
                 utente.setEmail("paolo@example.com");
                 utente.setNome("Paolo");
                 utente.setCognome("Oliviero");
-                utente.setPassword(bcrypt.encode("password123")); // usa PasswordEncoder
+                utente.setPassword(bcrypt.encode("password123"));
                 utente.setRuoli(List.of(ruoloUser));
                 utenteRepo.save(utente);
 
@@ -120,18 +120,9 @@ public class Runner {
                     mezzo1.setCapienzaMassima(1000);
                     mezzo1.setStatoMezzo(StatoMezzo.IN_SERVIZIO);
                     mezzo1.setAutista(autista1);
+                    mezzo1.setMagazzino(magazzino);
                     mezzoDiTrasportoRepo.save(mezzo1);
 
-                    MezzoDiTrasporto mezzo2 = new MezzoDiTrasporto();
-                    mezzo2.setCapienzaMassima(1500);
-                    mezzo2.setStatoMezzo(StatoMezzo.IN_MANUTENZIONE);
-                    mezzo2.setAutista(autista2);
-                    mezzoDiTrasportoRepo.save(mezzo2);
-
-                    carico1.setMezzoDiTrasporto(mezzo1);
-                    carico2.setMezzoDiTrasporto(mezzo2);
-                    caricoRepo.save(carico1);
-                    caricoRepo.save(carico2);
                 }
             }
         };
