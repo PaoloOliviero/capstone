@@ -16,6 +16,7 @@ public record NewMovimentoMagazzinoDTO(
         NewProdottoDTO prodotto,
         Long prodottoMagazzinoId,
         Long prodottoId,
-        Long utenteId
+        Long utenteId,
+        NewProdottoMagazzinoDTO prodottoMagazzino
 ) {
 }

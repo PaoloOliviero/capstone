@@ -48,9 +48,9 @@ public class MovimentoMagazzinoController {
                 movimento.getProdottoMagazzino().getId(),
                 movimento.getMagazzino().getId(),
                 movimento.getQuantity(),
-                utente.getNome(),
+                movimento.getRegistratoDa().getNome(),
                 movimento.getDataRegistrazione(),
-                null, null, null, null
+                null, null, null, null, null
         );
     }
 }

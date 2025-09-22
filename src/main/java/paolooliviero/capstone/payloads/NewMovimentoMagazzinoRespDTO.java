@@ -3,7 +3,7 @@ package paolooliviero.capstone.payloads;
 import java.time.LocalDate;
 
 public record NewMovimentoMagazzinoRespDTO
-        (Long movimentoId,
+        (Long Id,
          Long prodottoMagazzinoId,
          Long magazzinoId,
          Double quantity,
