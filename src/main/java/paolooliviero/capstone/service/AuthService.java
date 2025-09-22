@@ -10,6 +10,7 @@ import paolooliviero.capstone.security.JWTTools;
 
 @Service
 public class AuthService {
+
     @Autowired
     private UtenteService utenteService;
 
@@ -20,13 +21,12 @@ public class AuthService {
     private PasswordEncoder bcrypt;
 
     public String checkCredentialsAndGenerateToken(LoginDTO body) {
-        Utente found = this.utenteService.findByEmail(body.email());
+        Utente found = utenteService.findByEmail(body.email());
 
-        if (bcrypt.matches(body.password(), found.getPassword())) {
-            String accessToken = jwtTools.createToken(found);
-            return accessToken;
-        } else {
-            throw new UnauthorizedException("Credenziali errate!");
+        if (found == null || !bcrypt.matches(body.password(), found.getPassword())) {
+            throw new UnauthorizedException("Credenziali errate");
         }
+
+        return jwtTools.createToken(found);
     }
 }

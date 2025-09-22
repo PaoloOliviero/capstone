@@ -1,6 +1,8 @@
 package paolooliviero.capstone.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.ToString;
 
@@ -15,10 +17,10 @@ public class Magazzino {
     private double capacitaTotale;
     private double capacitaOccupata;
     @OneToMany(mappedBy = "magazzino")
-    @JsonIgnore
+    @JsonBackReference
     private List<ProdottoMagazzino> prodottiinMagazzino;
     @OneToMany(mappedBy = "magazzino")
-    @JsonIgnore
+    @JsonManagedReference
     private List<MovimentoMagazzino> movimentoMagazzino;
     @OneToMany(mappedBy = "magazzino")
     @JsonIgnore

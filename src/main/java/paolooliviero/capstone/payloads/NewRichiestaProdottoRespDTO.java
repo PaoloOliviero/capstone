@@ -1,4 +1,15 @@
 package paolooliviero.capstone.payloads;
 
-public record NewRichiestaProdottoRespDTO (long id){
+import java.time.LocalDate;
+
+public record NewRichiestaProdottoRespDTO (
+        long id,
+        int quantitaRichiesta,
+        LocalDate dataRichiesta,
+        String motivazione,
+        Long prodottoMagazzinoId,
+        Long magazzinoId,
+        Long richiestoDaId
+
+){
 }

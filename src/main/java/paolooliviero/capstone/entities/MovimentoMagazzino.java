@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.ToString;
 
+import java.time.LocalDate;
+
 
 @Entity
 @ToString
@@ -12,20 +14,26 @@ public class MovimentoMagazzino {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private double quantity;
+    private LocalDate dataRegistrazione;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "magazzino_id")
     private Magazzino magazzino;
     @ManyToOne
+    @JsonIgnore
     private ProdottoMagazzino prodottoMagazzino;
     @ManyToOne
     @JsonIgnore
     private Utente registratoDa;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "mezzo_id")
     private MezzoDiTrasporto mezzoDiTrasporto;
     @OneToOne(mappedBy = "movimentoAssociato")
+    @JsonIgnore
     private RichiestaProdotto richiestaOrigine;
     @ManyToOne
+    @JsonIgnore
     private Prodotto prodotto;
 
 
@@ -102,6 +110,14 @@ public class MovimentoMagazzino {
 
     public void setProdotto(Prodotto prodotto) {
         this.prodotto = prodotto;
+    }
+
+    public LocalDate getDataRegistrazione() {
+        return dataRegistrazione;
+    }
+
+    public void setDataRegistrazione(LocalDate dataRegistrazione) {
+        this.dataRegistrazione = dataRegistrazione;
     }
 }
 

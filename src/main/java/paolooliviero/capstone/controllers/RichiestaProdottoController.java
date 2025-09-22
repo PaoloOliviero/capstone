@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.BindingResult;
 import paolooliviero.capstone.entities.RichiestaProdotto;
 import paolooliviero.capstone.payloads.NewRichiestaProdottoDTO;
+import paolooliviero.capstone.payloads.NewRichiestaProdottoRespDTO;
 import paolooliviero.capstone.service.RichiestaProdottoService;
 
 import java.time.LocalDate;
@@ -32,27 +33,32 @@ public class RichiestaProdottoController {
 
 
     @GetMapping("/{richiestaProdottoId}")
-//    @PreAuthorize("hasAuthority('')")
-    public RichiestaProdotto getById(@PathVariable long richiestaProdottoId) {
-        return richiestaProdottoService.findById(richiestaProdottoId);
+    public NewRichiestaProdottoRespDTO getById(@PathVariable long richiestaProdottoId) {
+        RichiestaProdotto richiesta = richiestaProdottoService.findById(richiestaProdottoId);
+
+        return new NewRichiestaProdottoRespDTO(
+                richiesta.getId(),
+                richiesta.getQuantitaRichiesta(),
+                richiesta.getDataRichiesta(),
+                richiesta.getMotivazione(),
+                richiesta.getProdottoMagazzino().getId(),
+                richiesta.getMagazzino().getId(),
+                richiesta.getRichiestoDa().getId()
+        );
     }
+
 
 
     @PostMapping("/creamanuale")
-    @ResponseStatus(HttpStatus.CREATED)
-    public RichiestaProdotto creaRichiestaManuale(@RequestBody @Valid NewRichiestaProdottoDTO payload,
-                                                  BindingResult result) {
-        if (result.hasErrors()) {
-            throw new ValidationException("Validazione fallita: " + result.getAllErrors());
-        }
-
+    public NewRichiestaProdottoRespDTO creaRichiesta(@RequestBody NewRichiestaProdottoDTO payload) {
         return richiestaProdottoService.save(payload);
     }
+
 
     @DeleteMapping("/{richiestaId}")
 //    @PreAuthorize("hasAuthority('')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void getByIdAndDelete(@PathVariable long RichiestaProdottoId) {
+    public void getByIdAndDelete(@PathVariable("richiestaId") long RichiestaProdottoId) {
         this.richiestaProdottoService.findByIdAndDelete(RichiestaProdottoId);
     }
 

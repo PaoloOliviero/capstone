@@ -4,11 +4,8 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 import paolooliviero.capstone.entities.Utente;
@@ -17,32 +14,41 @@ import paolooliviero.capstone.service.UtenteService;
 
 import java.io.IOException;
 
-@Component
 public class SecurityFilter extends OncePerRequestFilter {
-    @Autowired
-    private JWTTools jwtTools;
 
-    @Autowired
-    private UtenteService utenteService;
+    private final JWTTools jwtTools;
+    private final UtenteService utenteService;
 
-    @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String authHeader = request.getHeader("Authorization");
-        if (authHeader == null || !authHeader.startsWith("Bearer "))
-            throw new UnauthorizedException("Inserire token in formato valido");
-        String accessToken = authHeader.replace("Bearer ", "");
-        jwtTools.verifyToken(accessToken);
-
-        String utenteId = jwtTools.extractIdFromToken(accessToken);
-        Utente utenteCorrente = this.utenteService.findById(Long.parseLong(utenteId));
-
-        Authentication authentication = new UsernamePasswordAuthenticationToken(utenteCorrente, null, utenteCorrente.getAuthorities());
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        filterChain.doFilter(request, response);
+    // ✅ Costruttore corretto
+    public SecurityFilter(JWTTools jwtTools, UtenteService utenteService) {
+        this.jwtTools = jwtTools;
+        this.utenteService = utenteService;
     }
 
+    @Override
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain) throws ServletException, IOException {
+
+        String authHeader = request.getHeader("Authorization");
+
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            throw new UnauthorizedException("Token mancante o malformato");
+        }
+
+        String token = authHeader.replace("Bearer ", "");
+        jwtTools.verifyToken(token);
+
+        String utenteId = jwtTools.extractIdFromToken(token);
+        Utente utente = utenteService.findById(Long.parseLong(utenteId));
+
+        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
+                utente, null, utente.getAuthorities()
+        );
+
+        SecurityContextHolder.getContext().setAuthentication(auth);
+        filterChain.doFilter(request, response);
+    }
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {

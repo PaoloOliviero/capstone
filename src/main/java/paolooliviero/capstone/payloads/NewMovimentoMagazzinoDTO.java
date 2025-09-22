@@ -7,15 +7,15 @@ import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 public record NewMovimentoMagazzinoDTO(
+        Long Id,
         @NotNull(message = "La capacità occupata deve essere obbligatoria")
         Double quantity,
-        @Valid
-        NewProdottoMagazzinoDTO prodottoMagazzino,
         @Valid
         NewMagazzinoDTO magazzino,
         @Valid
         NewProdottoDTO prodotto,
-        @Valid
-        UtenteDTO utente
+        Long prodottoMagazzinoId,
+        Long prodottoId,
+        Long utenteId
 ) {
 }

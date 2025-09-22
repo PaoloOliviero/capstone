@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import paolooliviero.capstone.entities.Utente;
 import paolooliviero.capstone.payloads.NewCaricoRespDTO;
+import paolooliviero.capstone.payloads.NewUtenteRespDTO;
 import paolooliviero.capstone.payloads.UtenteDTO;
 import paolooliviero.capstone.service.UtenteService;
 
@@ -28,12 +29,10 @@ public class UtenteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public NewCaricoRespDTO save(@Valid @RequestBody UtenteDTO payload, BindingResult validationResult) {
+    public NewUtenteRespDTO save(@Valid @RequestBody UtenteDTO payload, BindingResult validationResult) {
         Utente newUtente = utenteService.save(payload);
-        return new NewCaricoRespDTO(newUtente.getId());
-
+        return new NewUtenteRespDTO(newUtente.getId());
     }
-
 
     @GetMapping("/{utenteId}")
     public Utente getById(@PathVariable long utenteId) {

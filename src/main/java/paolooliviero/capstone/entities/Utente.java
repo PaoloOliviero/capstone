@@ -25,6 +25,11 @@ public class Utente {
     @JsonIgnore
     private String password;
     private String avatar;
+    @ManyToOne
+    @JoinColumn(name = "magazzino_id")
+    private Magazzino magazzino;
+
+
 
     @ManyToMany (fetch = FetchType.EAGER)
     @JoinTable(
@@ -97,6 +102,10 @@ public class Utente {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Magazzino getMagazzino() {
+        return magazzino;
     }
 
     public Collection<? extends GrantedAuthority> getAuthorities() {

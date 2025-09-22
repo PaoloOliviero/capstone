@@ -1,5 +1,7 @@
 package paolooliviero.capstone.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.ToString;
 
@@ -16,20 +18,31 @@ public class ProdottoMagazzino {
     private LocalDate dataIngresso;
 
     @ManyToOne
+    @JsonManagedReference
     private Prodotto prodotto;
 
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "magazzino_id")
     private Magazzino magazzino;
+    @ManyToOne
+    @JoinColumn(name = "carico_id")
+    private Carico carico;
+
+
 
 
     public ProdottoMagazzino() {
     }
 
-    public ProdottoMagazzino(Prodotto prodotto, ProdottoMagazzino prodottoMagazzino, Integer quantita, LocalDate dataIngresso) {
+
+    public ProdottoMagazzino( Double quantitaDisponibile, LocalDate dataIngresso, Carico carico, Magazzino magazzino, Prodotto prodotto) {
         this.prodotto = prodotto;
         this.quantitaDisponibile = quantitaDisponibile;
         this.dataIngresso = dataIngresso;
+        this.carico = carico;
+        this.magazzino = magazzino;
+
     }
 
     public Long getId() {
@@ -72,4 +85,13 @@ public class ProdottoMagazzino {
     public void setMagazzino(Magazzino magazzino) {
         this.magazzino = magazzino;
     }
+
+    public Carico getCarico() {
+        return carico;
+    }
+
+    public void setCarico(Carico carico) {
+        this.carico = carico;
+    }
+
 }

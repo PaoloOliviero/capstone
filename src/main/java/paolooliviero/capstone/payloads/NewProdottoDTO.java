@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 public record NewProdottoDTO (
+        @NotNull Long id,
         @NotEmpty(message = "obbligatorio!")
         String nome,
         @NotNull(message = "obbligatoria!")

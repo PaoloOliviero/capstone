@@ -20,9 +20,9 @@ public record NewCaricoDTO(
         @NotNull(message = "Il fatturato annuale è obbligatorio")
         Double volume,
         @NotEmpty(message = "Almeno un prodottomagazzino è obbligatorio")
-        List<NewProdottoMagazzinoDTO> prodottoMagazzino,
+        Long prodottoMagazzinoId,
         @Valid
-        MezzoDiTrasporto mezzoDiTrasporto,
+        Long mezzoId,
         @Valid
         @NotEmpty
         List<NewOrdineClienteDTO> ordineCliente

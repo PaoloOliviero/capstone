@@ -104,24 +104,27 @@ public class Runner {
                     autista2.setTelefono("4234234234");
                     autistaRepo.save(autista2);
 
-                    Carico carico1 = new Carico();
-                    carico1.setDescrizione("Carico alimentare");
-                    carico1.setVolume(500.0);
-                    carico1.setCategoria("Alimentari");
-                    caricoRepo.save(carico1);
-
-                    Carico carico2 = new Carico();
-                    carico2.setDescrizione("Carico elettronica");
-                    carico2.setVolume(800.0);
-                    carico2.setCategoria("Elettronica");
-                    caricoRepo.save(carico2);
-
                     MezzoDiTrasporto mezzo1 = new MezzoDiTrasporto();
                     mezzo1.setCapienzaMassima(1000);
                     mezzo1.setStatoMezzo(StatoMezzo.IN_SERVIZIO);
                     mezzo1.setAutista(autista1);
                     mezzo1.setMagazzino(magazzino);
                     mezzoDiTrasportoRepo.save(mezzo1);
+
+                    Carico carico1 = new Carico();
+                    carico1.setDescrizione("Carico alimentare");
+                    carico1.setVolume(500.0);
+                    carico1.setCategoria("Alimentari");
+                    carico1.setMezzoDiTrasporto(mezzo1);
+                    caricoRepo.save(carico1);
+
+                    Carico carico2 = new Carico();
+                    carico2.setDescrizione("Carico elettronica");
+                    carico2.setVolume(800.0);
+                    carico2.setCategoria("Elettronica");
+                    carico1.setMezzoDiTrasporto(mezzo1);
+                    caricoRepo.save(carico2);
+
 
                 }
             }

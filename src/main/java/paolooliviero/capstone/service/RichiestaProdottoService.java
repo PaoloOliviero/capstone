@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import paolooliviero.capstone.entities.*;
 import paolooliviero.capstone.exceptions.NotFoundException;
 import paolooliviero.capstone.payloads.NewRichiestaProdottoDTO;
+import paolooliviero.capstone.payloads.NewRichiestaProdottoRespDTO;
 import paolooliviero.capstone.repositories.*;
 
 import java.time.LocalDate;
@@ -40,7 +41,7 @@ public class RichiestaProdottoService {
     @Autowired
     private UtenteRepository utenteRepository;
 
-    public RichiestaProdotto save(NewRichiestaProdottoDTO payload) {
+    public NewRichiestaProdottoRespDTO save(NewRichiestaProdottoDTO payload) {
 
         ProdottoMagazzino prodottoMagazzino = prodottoMagazzinoRepository.findById(payload.prodottoMagazzinoId())
                 .orElseThrow(() -> new EntityNotFoundException("ProdottoMagazzino non trovato"));
@@ -89,7 +90,15 @@ public class RichiestaProdottoService {
         richiesta.setOrdineCliente(null);
         richiestaProdottoRepository.save(richiesta);
 
-        return richiesta;
+        return new NewRichiestaProdottoRespDTO(
+                richiesta.getId(),
+                richiesta.getQuantitaRichiesta(),
+                richiesta.getDataRichiesta(),
+                richiesta.getMotivazione(),
+                prodottoMagazzino.getId(),
+                magazzino.getId(),
+                richiedente.getId()
+        );
     }
 
     public void findByIdAndDelete(long id) {
@@ -131,4 +140,6 @@ public class RichiestaProdottoService {
     public List<RichiestaProdotto> filtroRichiestoDa(Long richiestoDaId) {
         return richiestaProdottoRepository.filtroRichiestoDa(richiestoDaId);
     }
+
+
 }

@@ -6,14 +6,13 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public record NewProdottoMagazzinoDTO (
-
+        Long id,
         @NotNull
-        Integer quantity,
+        Double quantitaDisponibile,
         @NotNull
         LocalDate dataIngresso,
-        @Valid
-        NewProdottoDTO prodotto,
-        @Valid
-        NewMagazzinoDTO magazzino
+        @NotNull Long prodottoId,
+        @NotNull Long magazzinoId
+
 ) {
 }

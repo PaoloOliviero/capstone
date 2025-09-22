@@ -23,7 +23,7 @@ public class Carico {
     private MezzoDiTrasporto mezzoDiTrasporto;
     @OneToMany
     private List<ProdottoOrdinatoCliente> prodottiOrdinati;
-    @OneToMany
+    @OneToMany (mappedBy = "carico", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<ProdottoMagazzino> prodottoMagazzino;
 
@@ -35,7 +35,7 @@ public class Carico {
     public Carico(String descrizione, double volume, String tipoMerce) {
         this.descrizione = descrizione;
         this.volume = volume;
-        this.categoria = categoria;
+        this.categoria = tipoMerce;
     }
 
     public long getId() {
@@ -54,10 +54,6 @@ public class Carico {
         this.descrizione = descrizione;
     }
 
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
-
     public double getVolume() {
         return volume;
     }
@@ -66,20 +62,12 @@ public class Carico {
         this.volume = volume;
     }
 
-    public String getTipoMerce() {
+    public String getCategoria() {
         return categoria;
     }
 
-    public void setTipoMerce(String tipoMerce) {
-        this.categoria = tipoMerce;
-    }
-
-    public MezzoDiTrasporto getMezzoDiTrasporto() {
-        return mezzoDiTrasporto;
-    }
-
-    public void setMezzoDiTrasporto(MezzoDiTrasporto mezzoDiTrasporto) {
-        this.mezzoDiTrasporto = mezzoDiTrasporto;
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
     public List<OrdineCliente> getOrdineCliente() {
@@ -90,8 +78,12 @@ public class Carico {
         this.ordineCliente = ordineCliente;
     }
 
-    public String getCategoria() {
-        return categoria;
+    public MezzoDiTrasporto getMezzoDiTrasporto() {
+        return mezzoDiTrasporto;
+    }
+
+    public void setMezzoDiTrasporto(MezzoDiTrasporto mezzoDiTrasporto) {
+        this.mezzoDiTrasporto = mezzoDiTrasporto;
     }
 
     public List<ProdottoOrdinatoCliente> getProdottiOrdinati() {

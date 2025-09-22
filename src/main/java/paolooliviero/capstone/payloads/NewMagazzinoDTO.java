@@ -7,6 +7,7 @@ import java.util.List;
 
 public record NewMagazzinoDTO (
 
+        @NotNull Long id,
         @NotNull(message = "La capacità occupata deve essere obbligatoria")
         Double capacitaOccupata,
         @NotNull(message = "La capacità occupata deve essere obbligatoria")

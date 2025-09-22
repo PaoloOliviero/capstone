@@ -17,6 +17,10 @@ public class StoricoPercorrenze {
     @ManyToOne
     private Autista autista;
     private double tempoEffettivoTratta;
+    @ManyToOne
+    private Magazzino magazzinoEntrata;
+    @ManyToOne
+    private Magazzino magazzinoUscita;
 
     public StoricoPercorrenze() {
     }
@@ -47,5 +51,37 @@ public class StoricoPercorrenze {
 
     public void setTempoEffettivoTratta(double tempoEffettivoTratta) {
         this.tempoEffettivoTratta = tempoEffettivoTratta;
+    }
+
+    public MezzoDiTrasporto getMezzoDiTrasporto() {
+        return mezzoDiTrasporto;
+    }
+
+    public void setMezzoDiTrasporto(MezzoDiTrasporto mezzoDiTrasporto) {
+        this.mezzoDiTrasporto = mezzoDiTrasporto;
+    }
+
+    public Autista getAutista() {
+        return autista;
+    }
+
+    public void setAutista(Autista autista) {
+        this.autista = autista;
+    }
+
+    public Magazzino getMagazzinoEntrata() {
+        return magazzinoEntrata;
+    }
+
+    public void setMagazzinoEntrata(Magazzino magazzinoEntrata) {
+        this.magazzinoEntrata = magazzinoEntrata;
+    }
+
+    public Magazzino getMagazzinoUscita() {
+        return magazzinoUscita;
+    }
+
+    public void setMagazzinoUscita(Magazzino magazzinoUscita) {
+        this.magazzinoUscita = magazzinoUscita;
     }
 }

@@ -22,7 +22,7 @@ public record NewRichiestaProdottoDTO(
         @NotNull(message = "Il richiedente è obbligatorio")
         Long richiestoDaId,
 
-        NewMovimentoMagazzinoDTO movimentoAssociato,
+        NewMovimentoMagazzinoDTO movimentoMagazzino,
 
         Long mezzoDiTrasportoId,
 

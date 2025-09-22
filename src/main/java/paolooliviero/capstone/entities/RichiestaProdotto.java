@@ -1,6 +1,8 @@
 package paolooliviero.capstone.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.ToString;
 
@@ -20,28 +22,32 @@ public class RichiestaProdotto {
 
     private String motivazione;
 
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.EAGER)
+    @JsonIgnore
     @JoinColumn(name = "prodotto_magazzino_id")
     private ProdottoMagazzino prodottoMagazzino;
 
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.EAGER)
     @JsonIgnore
     @JoinColumn(name = "magazzino_id")
     private Magazzino magazzino;
 
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "utente_id")
     private Utente richiestoDa;
 
-    @OneToOne
+    @OneToOne (fetch = FetchType.EAGER)
+    @JsonIgnore
     @JoinColumn(name = "movimento_id")
     private MovimentoMagazzino movimentoAssociato;
 
-    @OneToOne
+    @OneToOne (fetch = FetchType.EAGER)
+    @JsonIgnore
     @JoinColumn(name = "ordinecliente_id")
     private OrdineCliente ordineCliente;
 
-    @OneToOne
+    @OneToOne (fetch = FetchType.EAGER)
+    @JsonIgnore
     @JoinColumn(name = "eventomancanzaprodotto_id")
     private EventoMancanzaProdotto eventoMancanzaProdotto;
 
@@ -116,6 +122,14 @@ public class RichiestaProdotto {
 
     public void setEventoMancanzaProdotto(EventoMancanzaProdotto eventoMancanzaProdotto) {
         this.eventoMancanzaProdotto = eventoMancanzaProdotto;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
 
