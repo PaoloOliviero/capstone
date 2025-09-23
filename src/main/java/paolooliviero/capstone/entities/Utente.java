@@ -1,6 +1,7 @@
 package paolooliviero.capstone.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
@@ -26,6 +27,7 @@ public class Utente {
     private String password;
     private String avatar;
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "magazzino_id")
     private Magazzino magazzino;
 
@@ -106,6 +108,10 @@ public class Utente {
 
     public Magazzino getMagazzino() {
         return magazzino;
+    }
+
+    public void setMagazzino(Magazzino magazzino) {
+        this.magazzino = magazzino;
     }
 
     public Collection<? extends GrantedAuthority> getAuthorities() {

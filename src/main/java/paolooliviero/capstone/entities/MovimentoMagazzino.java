@@ -35,6 +35,10 @@ public class MovimentoMagazzino {
     @ManyToOne
     @JsonIgnore
     private Prodotto prodotto;
+    @OneToOne
+    @JsonIgnore
+    @JoinColumn(name = "storico_percorrenza_id")
+    private StoricoPercorrenze storicoPercorrenza;
 
 
     public MovimentoMagazzino() {}
@@ -118,6 +122,14 @@ public class MovimentoMagazzino {
 
     public void setDataRegistrazione(LocalDate dataRegistrazione) {
         this.dataRegistrazione = dataRegistrazione;
+    }
+
+    public StoricoPercorrenze getStoricoPercorrenza() {
+        return storicoPercorrenza;
+    }
+
+    public void setStoricoPercorrenza(StoricoPercorrenze storicoPercorrenza) {
+        this.storicoPercorrenza = storicoPercorrenza;
     }
 }
 

@@ -16,48 +16,35 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import paolooliviero.capstone.service.UtenteService;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Configuration
-@EnableWebSecurity
 @EnableMethodSecurity
+@EnableWebSecurity
+
 public class SecurityConfig {
-
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity,
-                                                   JWTTools jwtTools,
-                                                   UtenteService utenteService) throws Exception {
-
-        // ✅ Costruttore corretto
-        SecurityFilter securityFilter = new SecurityFilter(jwtTools, utenteService);
-
-        httpSecurity
-                .formLogin(f -> f.disable())
-                .csrf(c -> c.disable())
-                .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(h -> h
-                        .requestMatchers("/auth/**").permitAll()
-                        .anyRequest().authenticated()
-                )
-                .cors(Customizer.withDefaults());
-
-        httpSecurity.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
-
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.formLogin(f -> f.disable());
+        httpSecurity.csrf(c -> c.disable());
+        httpSecurity.sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        httpSecurity.authorizeHttpRequests(h -> h.requestMatchers("/**").permitAll());
+        httpSecurity.cors(Customizer.withDefaults()); // Abilita CORS secondo configurazione WebConfig
         return httpSecurity.build();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public PasswordEncoder getBCrypt() {
         return new BCryptPasswordEncoder(12);
     }
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:5173")); // ✅ FE in dev
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173", "https://www.myfuturefrontendforthisproject.com"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
-        configuration.setAllowCredentials(true); // ✅ se usi cookie HTTP-only
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

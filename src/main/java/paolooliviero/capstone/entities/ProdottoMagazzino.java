@@ -8,7 +8,6 @@ import lombok.ToString;
 import java.time.LocalDate;
 
 @Entity
-@ToString
 public class ProdottoMagazzino {
 
     @Id
@@ -18,14 +17,15 @@ public class ProdottoMagazzino {
     private LocalDate dataIngresso;
 
     @ManyToOne
-    @JsonManagedReference
+    @JsonIgnore
     private Prodotto prodotto;
 
     @ManyToOne
-    @JsonManagedReference
+    @JsonIgnore
     @JoinColumn(name = "magazzino_id")
     private Magazzino magazzino;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "carico_id")
     private Carico carico;
 

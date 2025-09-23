@@ -14,5 +14,6 @@ public record NewMovimentoMagazzinoRespDTO
          Long magazzinoEntrataId,
          Long magazzinoUscitaId,
          Long utenteId
+
         ) {
 }

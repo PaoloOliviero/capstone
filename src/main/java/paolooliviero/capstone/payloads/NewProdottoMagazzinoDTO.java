@@ -7,12 +7,10 @@ import java.time.LocalDate;
 
 public record NewProdottoMagazzinoDTO (
         Long id,
-        @NotNull
         Double quantitaDisponibile,
-        @NotNull
         LocalDate dataIngresso,
-        @NotNull Long prodottoId,
-        @NotNull Long magazzinoId
+        Long prodottoId,
+        Long magazzinoId
 
 ) {
 }

@@ -21,6 +21,10 @@ public class StoricoPercorrenze {
     private Magazzino magazzinoEntrata;
     @ManyToOne
     private Magazzino magazzinoUscita;
+    @OneToOne(mappedBy = "storicoPercorrenza")
+    private MovimentoMagazzino movimento;
+
+
 
     public StoricoPercorrenze() {
     }

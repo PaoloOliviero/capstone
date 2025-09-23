@@ -7,9 +7,9 @@ public record NewRichiestaProdottoRespDTO (
         int quantitaRichiesta,
         LocalDate dataRichiesta,
         String motivazione,
-        Long prodottoMagazzinoId,
-        Long magazzinoId,
-        Long richiestoDaId
+        long prodottoMagazzinoId,
+        long magazzinoId,
+        long richiestoDaId
 
 ){
 }

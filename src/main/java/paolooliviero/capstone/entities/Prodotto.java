@@ -10,7 +10,6 @@ import lombok.ToString;
 import java.util.List;
 
 @Entity
-@ToString
 public class Prodotto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

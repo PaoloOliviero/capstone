@@ -31,7 +31,7 @@ public class ProdottoMagazzinoController {
         return (Page<ProdottoMagazzino>) this.prodottoMagazzinoService.findAll(page, size, sortBy);
     }
 
-    @PostMapping("/ProdottoMagazzino")
+    @PostMapping("/creaProdottoMagazzino")
     @ResponseStatus(HttpStatus.CREATED)
 //    @PreAuthorize("hasAuthority('')")
     public NewProdottoMagazzinoRespDTO save(@RequestBody @Validated NewProdottoMagazzinoDTO payload, BindingResult validationResult) {

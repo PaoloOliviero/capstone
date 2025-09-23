@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import paolooliviero.capstone.entities.Magazzino;
+import paolooliviero.capstone.entities.MovimentoMagazzino;
 import paolooliviero.capstone.entities.Prodotto;
 import paolooliviero.capstone.entities.ProdottoMagazzino;
 import paolooliviero.capstone.exceptions.NotFoundException;
@@ -28,6 +29,9 @@ public class ProdottoMagazzinoService {
     private ProdottoRepository prodottoRepository;
     @Autowired
     private MagazzinoRepository magazzinoRepository;
+    @Autowired
+    private MovimentoMagazzinoRepository movimentoRepo;
+
 
 
     public ProdottoMagazzino save(NewProdottoMagazzinoDTO payload) {
@@ -112,6 +116,6 @@ public class ProdottoMagazzinoService {
                 ))
                 .toList();
     }
-
 }
+
 

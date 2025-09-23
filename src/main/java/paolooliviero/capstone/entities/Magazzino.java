@@ -9,7 +9,6 @@ import lombok.ToString;
 import java.util.List;
 
 @Entity
-@ToString
 public class Magazzino {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,14 +16,18 @@ public class Magazzino {
     private double capacitaTotale;
     private double capacitaOccupata;
     @OneToMany(mappedBy = "magazzino")
-    @JsonBackReference
+    @JsonIgnore
     private List<ProdottoMagazzino> prodottiinMagazzino;
     @OneToMany(mappedBy = "magazzino")
-    @JsonManagedReference
+    @JsonIgnore
     private List<MovimentoMagazzino> movimentoMagazzino;
     @OneToMany(mappedBy = "magazzino")
     @JsonIgnore
     private List<Spedizione> spedizione;
+    @OneToMany(mappedBy = "magazzino")
+    @JsonManagedReference
+    private List<Utente> utenti;
+
 
     public Magazzino() {}
 
@@ -73,5 +76,21 @@ public class Magazzino {
 
     public void setMovimentoMagazzino(List<MovimentoMagazzino> movimentoMagazzino) {
         this.movimentoMagazzino = movimentoMagazzino;
+    }
+
+    public List<Utente> getUtenti() {
+        return utenti;
+    }
+
+    public void setUtenti(List<Utente> utenti) {
+        this.utenti = utenti;
+    }
+
+    public List<Spedizione> getSpedizione() {
+        return spedizione;
+    }
+
+    public void setSpedizione(List<Spedizione> spedizione) {
+        this.spedizione = spedizione;
     }
 }

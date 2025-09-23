@@ -3,6 +3,7 @@ package paolooliviero.capstone.controllers;
 import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
@@ -17,6 +18,9 @@ import paolooliviero.capstone.payloads.NewMovimentoMagazzinoDTO;
 import paolooliviero.capstone.payloads.NewMovimentoMagazzinoRespDTO;
 import paolooliviero.capstone.service.MezzoDiTrasportoService;
 import paolooliviero.capstone.service.MovimentoMagazzinoService;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping("/movimenti")
@@ -33,7 +37,7 @@ public class MovimentoMagazzinoController {
         return movimentoMagazzinoService.findAll(page, size, sortBy);
     }
 
-    @PostMapping
+    @PostMapping ("/creamovimento")
     @ResponseStatus(HttpStatus.CREATED)
     public NewMovimentoMagazzinoRespDTO save(@RequestBody @Validated NewMovimentoMagazzinoDTO payload,
                                              BindingResult validationResult) {
@@ -50,7 +54,47 @@ public class MovimentoMagazzinoController {
                 movimento.getQuantity(),
                 movimento.getRegistratoDa().getNome(),
                 movimento.getDataRegistrazione(),
-                null, null, null, null, null
+                movimento.getStoricoPercorrenza() != null ? movimento.getStoricoPercorrenza().getId() : null,
+                movimento.getProdottoMagazzino().getCarico() != null ? movimento.getProdottoMagazzino().getCarico().getMezzoDiTrasporto().getId() : null,
+                movimento.getStoricoPercorrenza() != null ? movimento.getStoricoPercorrenza().getMagazzinoEntrata().getId() : null,
+                movimento.getStoricoPercorrenza() != null ? movimento.getStoricoPercorrenza().getMagazzinoUscita().getId() : null,
+                movimento.getRegistratoDa().getId()
         );
     }
+    @GetMapping("/filtra/magazzino/{magazzinoId}")
+    public List<MovimentoMagazzino> filterByMagazzino(@PathVariable Long magazzinoId) {
+        return movimentoMagazzinoService.filterByMagazzino(magazzinoId);
+    }
+
+    @GetMapping("/filtra/mezzo/{mezzoId}")
+    public List<MovimentoMagazzino> filterByMezzo(@PathVariable Long mezzoId) {
+        return movimentoMagazzinoService.filterByMezzo(mezzoId);
+    }
+
+    @GetMapping("/filtra/data-registrazione")
+    public List<MovimentoMagazzino> filterByDataRegistrazione(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data) {
+        return movimentoMagazzinoService.filterByDataRegistrazione(data);
+    }
+
+    @GetMapping("/filtra/utente/{utenteId}")
+    public List<MovimentoMagazzino> filterByUtente(@PathVariable Long utenteId) {
+        return movimentoMagazzinoService.filterByUtente(utenteId);
+    }
+
+    @GetMapping("/filtra/quantita")
+    public List<MovimentoMagazzino> filterByMinQuantity(@RequestParam Double minQuantity) {
+        return movimentoMagazzinoService.filterByMinQuantity(minQuantity);
+    }
+
+    @GetMapping("/filtra/prodotto-magazzino/{pmId}")
+    public List<MovimentoMagazzino> filterByProdottoMagazzino(@PathVariable Long pmId) {
+        return movimentoMagazzinoService.filterByProdottoMagazzino(pmId);
+    }
+
+    @GetMapping("/filtra/storico/{storicoId}")
+    public List<MovimentoMagazzino> filterByStoricoPercorrenza(@PathVariable Long storicoId) {
+        return movimentoMagazzinoService.filterByStoricoPercorrenza(storicoId);
+    }
+
+
 }

@@ -33,6 +33,7 @@ public class RichiestaProdotto {
     private Magazzino magazzino;
 
     @ManyToOne (fetch = FetchType.EAGER)
+    @JsonIgnore
     @JoinColumn(name = "utente_id")
     private Utente richiestoDa;
 
