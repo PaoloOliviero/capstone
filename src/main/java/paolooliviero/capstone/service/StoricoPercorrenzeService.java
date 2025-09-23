@@ -5,8 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import paolooliviero.capstone.entities.Fattura;
-import paolooliviero.capstone.entities.StoricoPercorrenze;
+import org.springframework.stereotype.Service;
+import paolooliviero.capstone.entities.*;
 import paolooliviero.capstone.exceptions.NotFoundException;
 import paolooliviero.capstone.payloads.NewFatturaDTO;
 import paolooliviero.capstone.payloads.NewStoricoPercorrenzaDTO;
@@ -27,16 +27,33 @@ public class StoricoPercorrenzeService {
     @Autowired
     private MagazzinoRepository magazzinoRepo;
 
+    private MezzoDiTrasporto getMezzo(Long id) {
+        return (id != null) ? mezzoRepo.findById(id).orElse(null) : null;
+    }
+
+    private Autista getAutista(Long id) {
+        return (id != null) ? autistaRepo.findById(id).orElse(null) : null;
+    }
+
+    private Magazzino getMagazzino(Long id) {
+        return (id != null) ? magazzinoRepo.findById(id).orElse(null) : null;
+    }
+
+
+
     public StoricoPercorrenze save(NewStoricoPercorrenzaDTO payload) {
         StoricoPercorrenze storico = new StoricoPercorrenze();
 
         storico.setTempoEffettivoTratta(payload.tempoEffettivoTratta());
         storico.setSpedizione(null);
-        storico.setMagazzinoEntrata(payload.magazzinoEntrataId());
-        storico.setMagazzinoUscita(payload.magazzinoUscitaId());
-        storico.setMezzoDiTrasporto(payload.mezzoId());
+
+        storico.setMezzoDiTrasporto(getMezzo(payload.mezzoId()));
+        storico.setMagazzinoEntrata(getMagazzino(payload.magazzinoEntrataId()));
+        storico.setMagazzinoUscita(getMagazzino(payload.magazzinoUscitaId()));
+
         return storicoRepo.save(storico);
     }
+
 
     public Page<StoricoPercorrenze> findAll(int pageNumber, int pageSize, String sortBy) {
         if (pageSize > 50) pageSize = 50;
@@ -58,10 +75,9 @@ public class StoricoPercorrenzeService {
         if (found == null) return null;
 
         found.setTempoEffettivoTratta(payload.tempoEffettivoTratta());
-        found.setMezzoDiTrasporto(mezzoRepo.findById(payload.idMezzo()).orElse(null));
-        found.setAutista(autistaRepo.findById(payload.idAutista()).orElse(null));
-        found.setMagazzinoEntrata(magazzinoRepo.findById(payload.idMagazzinoEntrata()).orElse(null));
-        found.setMagazzinoUscita(magazzinoRepo.findById(payload.idMagazzinoUscita()).orElse(null));
+        found.setMezzoDiTrasporto(mezzoRepo.findById(payload.mezzoId()).orElse(null));
+        found.setMagazzinoEntrata(magazzinoRepo.findById(payload.magazzinoEntrataId()).orElse(null));
+        found.setMagazzinoUscita(magazzinoRepo.findById(payload.magazzinoUscitaId()).orElse(null));
 
         return storicoRepo.save(found);
     }
