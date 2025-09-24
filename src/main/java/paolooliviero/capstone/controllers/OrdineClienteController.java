@@ -27,7 +27,6 @@ public class OrdineClienteController {
     @Autowired
     private UtenteService utenteService;
 
-    // 🔍 Recupera tutti gli ordini cliente con paginazione
     @GetMapping
     public Page<OrdineCliente> findAll(@RequestParam(defaultValue = "0") int page,
                                        @RequestParam(defaultValue = "10") int size,
@@ -35,7 +34,7 @@ public class OrdineClienteController {
         return ordineClienteService.findAll(page, size, sortBy);
     }
 
-    // 🧾 Crea un nuovo ordine cliente
+
     @PostMapping("/creamagazzino")
     @ResponseStatus(HttpStatus.CREATED)
     public NewOrdineClienteRespDTO save(@RequestBody @Validated NewOrdineClienteDTO payload,
@@ -47,20 +46,18 @@ public class OrdineClienteController {
         return new NewOrdineClienteRespDTO(newOrdineCliente.getId());
     }
 
-    // 🔍 Recupera un ordine cliente per ID
+
     @GetMapping("/{ordineClienteId}")
     public OrdineCliente getById(@PathVariable long ordineClienteId) {
         return ordineClienteService.findById(ordineClienteId);
     }
 
-    // ✏️ Aggiorna un ordine cliente
     @PutMapping("/{ordineClienteId}")
     public OrdineCliente getByIdAndUpdate(@PathVariable long ordineClienteId,
                                           @RequestBody NewOrdineClienteDTO payload) {
         return ordineClienteService.findByIdAndUpdate(ordineClienteId, payload);
     }
 
-    // 🗑️ Elimina un ordine cliente
     @DeleteMapping("/{ordineClienteId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void getByIdAndDelete(@PathVariable long ordineClienteId) {

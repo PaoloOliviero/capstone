@@ -2,6 +2,7 @@ package paolooliviero.capstone.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -12,6 +13,9 @@ import paolooliviero.capstone.payloads.NewTicketRespDTO;
 import paolooliviero.capstone.service.TicketService;
 
 import jakarta.validation.ValidationException;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequestMapping("/tickets")
@@ -49,4 +53,30 @@ public class TicketController {
         return ticketService.findById(ticketId);
     }
 
-}
+
+    @GetMapping("/filtrotitolo")
+    public List<Ticket> filtroTitolo(@RequestParam String titolo) {
+        return ticketService.filtroTitolo(titolo);
+    }
+
+    @GetMapping("/filtrodescrizione")
+    public List<Ticket> filtroDescrizione(@RequestParam String descrizione) {
+        return ticketService.filtroDescrizione(descrizione);
+    }
+
+    @GetMapping("/filtrodata")
+    public List<Ticket> filtroDataCreazione(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataCreazione) {
+        return ticketService.filtroDataCreazione(dataCreazione);
+    }
+
+    @GetMapping("/filtroordine")
+    public List<Ticket> filtroOrdineCliente(@RequestParam Long ordineId) {
+        return ticketService.filtroOrdineCliente(ordineId);
+    }
+
+    @GetMapping("/con-relazioni")
+    public List<Ticket> findAllConRelazioni() {
+        return ticketService.findAllConJoin();
+        }
+    }
+

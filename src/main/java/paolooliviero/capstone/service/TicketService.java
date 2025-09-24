@@ -58,4 +58,24 @@ public class TicketService {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending());
         return this.ticketRepository.findAll(pageable);
     }
-}
+
+        public List<Ticket> filtroTitolo(String titolo) {
+            return ticketRepository.filtroTitolo(titolo);
+        }
+
+        public List<Ticket> filtroDescrizione(String descrizione) {
+            return ticketRepository.filtroDescrizione(descrizione);
+        }
+
+        public List<Ticket> filtroDataCreazione(LocalDateTime data) {
+            return ticketRepository.filtroDataCreazione(data);
+        }
+
+        public List<Ticket> filtroOrdineCliente(Long ordineId) {
+            return ticketRepository.filtroOrdineCliente(ordineId);
+        }
+
+        public List<Ticket> findAllConJoin() {
+            return ticketRepository.findAllConJoin();
+        }
+    }
