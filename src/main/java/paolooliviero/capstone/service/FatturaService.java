@@ -67,4 +67,22 @@ public class FatturaService {
 
         return fatturaRepository.save(found);
     }
+
+    public List<Fattura> filtroImporto(double importoMax) {
+        return fatturaRepository.findByImportoLessThanEqual(importoMax);
+    }
+
+    public List<Fattura> filtroEmissione(LocalDate dataEmissioneMax) {
+        return fatturaRepository.findByDataEmissioneBeforeOrEqual(dataEmissioneMax);
+    }
+
+    public List<Fattura> filtroFattura(String statoNome) {
+        return fatturaRepository.findByStatoFatturaNomeLike(statoNome);
+    }
+
+    public List<Fattura> filtroClienteId(long clienteId) {
+        return fatturaRepository.findByClienteId(clienteId);
+    }
+
+
 }

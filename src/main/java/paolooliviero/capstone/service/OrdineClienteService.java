@@ -10,12 +10,15 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import paolooliviero.capstone.entities.*;
 import paolooliviero.capstone.enums.StatoOrdine;
+import paolooliviero.capstone.enums.TipologiaSegmento;
 import paolooliviero.capstone.exceptions.NotFoundException;
 import paolooliviero.capstone.payloads.NewMezzoDiTrasportoDTO;
+import paolooliviero.capstone.payloads.NewNotificaRespDTO;
 import paolooliviero.capstone.payloads.NewOrdineClienteDTO;
 import paolooliviero.capstone.payloads.NewProdottoDTO;
 import paolooliviero.capstone.repositories.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +46,13 @@ public class OrdineClienteService {
 
     @Autowired
     private CaricoRepository caricoRepository;
+
+    @Autowired
+    private SegmentoRepository segmentoRepository;
+
+    @Autowired
+    private NotificaService notificaService;
+
 
 
     public OrdineCliente save (NewOrdineClienteDTO payload) {
@@ -125,4 +135,38 @@ public class OrdineClienteService {
         return ordineClienteRepository.save(found);
 
     }
+
+    @Autowired
+    private TicketService ticketService;
+
+    public OrdineCliente classificaOrdine(Long ordineId, Long segmentoId) {
+        OrdineCliente ordine = ordineClienteRepository.findByIdWithCliente(ordineId)
+                .orElseThrow(() -> new NotFoundException(ordineId));
+
+        Segmento segmento = segmentoRepository.findById(segmentoId)
+                .orElseThrow(() -> new NotFoundException(segmentoId));
+
+        ordine.setSegmento(segmento);
+
+        // 🔔 Notifica
+        NewNotificaRespDTO notifica = new NewNotificaRespDTO(
+                null,
+                "Segmentazione ordine",
+                "L'ordine #" + ordine.getId() + " è stato assegnato al segmento " + segmento.getNome(),
+                false,
+                LocalDateTime.now(),
+                ordine.getCliente() != null ? ordine.getCliente().getRagioneSociale() : "sconosciuto",
+                null
+
+        );
+        ticketService.creaTicketPerTutti(ordine);
+
+        // 🎫 Ticket
+        notificaService.creaNotificaPerTutti(notifica, ordine);
+
+        return ordine;
+    }
+
+
 }
+

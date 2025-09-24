@@ -16,6 +16,7 @@ public class Carico {
     private double volume;
     private String categoria;
     @OneToMany(mappedBy = "carico")
+    @JsonIgnore
     private List<OrdineCliente> ordineCliente;
     @ManyToOne
     @JoinColumn(name = "mezzo_di_trasporto_id")

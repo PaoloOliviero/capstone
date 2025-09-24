@@ -25,9 +25,16 @@ public class Cliente {
     @JsonIgnore
     private List<Fattura> fatture;
     @OneToMany(mappedBy = "cliente")
+    @JsonIgnore
     private List<SedeCliente> sedeCliente;
     @OneToMany(mappedBy = "cliente")
+    @JsonIgnore
     private List<OrdineCliente> ordineCliente;
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "segmento_id")
+    private Segmento segmento;
+
 
     public Cliente ()
     {}
@@ -128,6 +135,14 @@ public class Cliente {
 
     public void setOrdineCliente(List<OrdineCliente> ordineCliente) {
         this.ordineCliente = ordineCliente;
+    }
+
+    public Segmento getSegmento() {
+        return segmento;
+    }
+
+    public void setSegmento(Segmento segmento) {
+        this.segmento = segmento;
     }
 }
 

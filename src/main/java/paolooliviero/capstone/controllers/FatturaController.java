@@ -12,6 +12,9 @@ import paolooliviero.capstone.payloads.NewFatturaDTO;
 import paolooliviero.capstone.payloads.NewFatturaRespDTO;
 import paolooliviero.capstone.service.FatturaService;
 
+import java.time.LocalDate;
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/fatture")
@@ -60,5 +63,28 @@ public class FatturaController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void getByIdAndDelete(@PathVariable long fatturaId) {
         this.fatturaService.findByIdAndDelete(fatturaId);
-    } }
+    }
+
+
+    @GetMapping("/filtro/importo")
+    public List<Fattura> filtroImporto(@RequestParam double importoMax) {
+        return fatturaService.filtroImporto(importoMax);
+    }
+
+    @GetMapping("/filtro/emissione")
+    public List<Fattura> filtroEmissione(@RequestParam LocalDate dataEmissioneMax) {
+        return fatturaService.filtroEmissione(dataEmissioneMax);
+    }
+
+    @GetMapping("/filtro/stato")
+    public List<Fattura> filtroFattura(@RequestParam String statoNome) {
+        return fatturaService.filtroFattura(statoNome);
+    }
+
+    @GetMapping("/filtro/cliente")
+    public List<Fattura> filtroClienteId(@RequestParam long clienteId) {
+        return fatturaService.filtroClienteId(clienteId);
+    }
+}
+
 

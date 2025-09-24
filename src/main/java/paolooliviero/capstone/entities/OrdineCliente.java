@@ -36,6 +36,11 @@ public class OrdineCliente {
     private RichiestaProdotto richiestaProdotto;
     @OneToMany(mappedBy = "ordineCliente")
     private List<ProdottoOrdinatoCliente> prodottoOrdinatoCliente;
+    @ManyToOne
+    @JoinColumn(name = "segmento_id")
+    private Segmento segmento;
+
+    private boolean urgente;
 
 
     public OrdineCliente() {}
@@ -148,6 +153,22 @@ public class OrdineCliente {
 
     public void setProdottoOrdinatoCliente(List<ProdottoOrdinatoCliente> prodottoOrdinatoCliente) {
         this.prodottoOrdinatoCliente = prodottoOrdinatoCliente;
+    }
+
+    public Segmento getSegmento() {
+        return segmento;
+    }
+
+    public void setSegmento(Segmento segmento) {
+        this.segmento = segmento;
+    }
+
+    public boolean isUrgente() {
+        return urgente;
+    }
+
+    public void setUrgente(boolean urgente) {
+        this.urgente = urgente;
     }
 }
 

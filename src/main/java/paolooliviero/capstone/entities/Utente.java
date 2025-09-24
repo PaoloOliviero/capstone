@@ -1,5 +1,6 @@
 package paolooliviero.capstone.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -27,7 +28,7 @@ public class Utente {
     private String password;
     private String avatar;
     @ManyToOne
-    @JsonManagedReference
+    @JsonBackReference
     @JoinColumn(name = "magazzino_id")
     private Magazzino magazzino;
 
