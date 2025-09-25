@@ -8,7 +8,7 @@ public record NewCaricoRespDTO (
         String descrizione,
         Double volume,
         Long mezzoId,
-        List<Long> prodottiMagazzinoIds
+        List<Long> prodottoMagazzinoIds
 ) {
 
 }

@@ -24,11 +24,10 @@ public class RichiestaProdottoController {
     private RichiestaProdottoService richiestaProdottoService;
 
     @GetMapping
-//    @PreAuthorize("hasAuthority('')")
-    public Page<RichiestaProdotto> findAll(@RequestParam(defaultValue = "0") int page,
-                                           @RequestParam(defaultValue = "10") int size,
-                                           @RequestParam(defaultValue = "id") String sortBy) {
-        return (Page<RichiestaProdotto>) richiestaProdottoService.findAll(page, size, sortBy);
+    public Page<NewRichiestaProdottoRespDTO> findAll(@RequestParam(defaultValue = "0") int page,
+                                                        @RequestParam(defaultValue = "10") int size,
+                                                        @RequestParam(defaultValue = "id") String sortBy) {
+        return richiestaProdottoService.findAll(page, size, sortBy);
     }
 
 

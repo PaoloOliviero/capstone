@@ -34,18 +34,28 @@ public class CaricoService {
         Carico newCarico = new Carico();
         newCarico.setCategoria(payload.categoria());
         newCarico.setDescrizione(payload.descrizione());
+        newCarico.setVolume(payload.volume());
 
         MezzoDiTrasporto mezzo = mezzoRepo.findById(payload.mezzoId())
                 .orElseThrow(() -> new NotFoundException("Mezzo non trovato"));
         newCarico.setMezzoDiTrasporto(mezzo);
 
-        ProdottoMagazzino prodottoMagazzino = prodottoMagazzinoRepo.findById(payload.prodottoMagazzinoId())
-                .orElseThrow(() -> new NotFoundException("ProdottoMagazzino non trovato"));
-        prodottoMagazzino.setCarico(newCarico);
-        newCarico.setProdottoMagazzino(new ArrayList<>(List.of(prodottoMagazzino)));
+        List<ProdottoMagazzino> prodotti = prodottoMagazzinoRepo.findAllById(payload.prodottoMagazzinoIds());
 
-        return caricoRepository.save(newCarico);
+        if (prodotti.size() != payload.prodottoMagazzinoIds().size()) {
+            throw new NotFoundException("Uno o più ProdottoMagazzino non trovati");
+        }
+
+        prodotti.forEach(p -> p.setCarico(newCarico));
+
+        newCarico.setProdottoMagazzino(new ArrayList<>(prodotti));
+
+        Carico caricoSalvato = caricoRepository.save(newCarico);
+        prodottoMagazzinoRepo.saveAll(prodotti);
+
+        return caricoSalvato;
     }
+
 
     public Page<Carico> findAll(int pageNumber, int pageSize, String sortBy) {
         if (pageSize > 50) pageSize = 50;
@@ -85,9 +95,11 @@ public class CaricoService {
         return caricoRepository.findAllConJoin();
     }
 
-    public List<NewCaricoRespDTO> findAllConRelazioniDTO() {
-        return caricoRepository.findAllConJoin().stream().map(carico -> {
-            List<Long> prodottiIds = carico.getProdottoMagazzino() == null
+    public Page<NewCaricoRespDTO> findAllConRelazioniDTO(Pageable pageable) {
+        Page<Carico> carichi = caricoRepository.findAll(pageable);
+
+        return carichi.map(carico -> {
+            List<Long> ids = carico.getProdottoMagazzino() == null
                     ? List.of()
                     : carico.getProdottoMagazzino().stream()
                     .map(ProdottoMagazzino::getId)
@@ -99,8 +111,8 @@ public class CaricoService {
                     carico.getDescrizione(),
                     carico.getVolume(),
                     carico.getMezzoDiTrasporto() != null ? carico.getMezzoDiTrasporto().getId() : null,
-                    prodottiIds
+                    ids
             );
-        }).toList();
+        });
     }
 }

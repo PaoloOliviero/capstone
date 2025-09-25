@@ -1,6 +1,8 @@
 package paolooliviero.capstone.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.ToString;
 
@@ -24,10 +26,9 @@ public class Carico {
     private MezzoDiTrasporto mezzoDiTrasporto;
     @OneToMany
     private List<ProdottoOrdinatoCliente> prodottiOrdinati;
-    @OneToMany (mappedBy = "carico", cascade = CascadeType.ALL)
-    @JsonIgnore
+    @OneToMany(mappedBy = "carico", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<ProdottoMagazzino> prodottoMagazzino;
-
 
 
     public Carico ()
@@ -99,9 +100,10 @@ public class Carico {
         return prodottoMagazzino;
     }
 
-    public void setProdottoMagazzino(List<ProdottoMagazzino> prodottoMagazzino) {
-        this.prodottoMagazzino = prodottoMagazzino;
+    public void setProdottoMagazzino(List<ProdottoMagazzino> prodottiMagazzino) {
+        this.prodottoMagazzino = prodottiMagazzino;
     }
 }
+
 
 

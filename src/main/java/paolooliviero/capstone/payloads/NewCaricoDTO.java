@@ -1,14 +1,7 @@
 package paolooliviero.capstone.payloads;
 
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
-import paolooliviero.capstone.entities.MezzoDiTrasporto;
-import paolooliviero.capstone.entities.OrdineCliente;
-
-import java.time.LocalDate;
 import java.util.List;
 
 public record NewCaricoDTO(
@@ -16,9 +9,14 @@ public record NewCaricoDTO(
         String categoria,
         String descrizione,
         Double volume,
-        Long prodottoMagazzinoId,
+
+        @NotEmpty(message = "Almeno un prodotto deve essere associato al carico")
+        List<@NotNull Long> prodottoMagazzinoIds,
+
+        @NotNull(message = "Il mezzo di trasporto è obbligatorio")
         Long mezzoId,
+
         @Valid
         List<NewOrdineClienteDTO> ordineCliente
-) {
-}
+
+) {}

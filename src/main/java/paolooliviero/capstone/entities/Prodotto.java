@@ -26,6 +26,7 @@ public class Prodotto {
     private List<MovimentoMagazzino> movimentoMagazzino;
     @ManyToOne
     @JoinColumn(name="ordineCliente_id")
+    @JsonIgnore
     private OrdineCliente ordineCliente;
 
 

@@ -24,26 +24,30 @@ public class FatturaController {
     private FatturaService fatturaService;
 
     @GetMapping
-//    @PreAuthorize("hasAuthority('')")
-    public Page<Fattura> findAll(@RequestParam(defaultValue = "0") int page,
-                                 @RequestParam(defaultValue = "10") int size,
-                                 @RequestParam(defaultValue = "id") String sortBy
-    ) {
-        return (Page<Fattura>) this.fatturaService.findAll(page, size, sortBy);
+    public Page<NewFatturaRespDTO> findAll(@RequestParam(defaultValue = "0") int page,
+                                           @RequestParam(defaultValue = "10") int size,
+                                           @RequestParam(defaultValue = "id") String sortBy) {
+        return fatturaService.findAll(page, size, sortBy);
     }
 
-    @PostMapping("/creafattura")
+
+        @PostMapping("/creafattura")
     @ResponseStatus(HttpStatus.CREATED)
-//    @PreAuthorize("hasAuthority('')")
+// @PreAuthorize("hasAuthority('')")
     public NewFatturaRespDTO save(@RequestBody @Validated NewFatturaDTO payload, BindingResult validationResult) {
         if (validationResult.hasErrors()) {
             throw new ValidationException("Errore");
-        } else {
-            Fattura newFattura = this.fatturaService.save(payload);
-            return new NewFatturaRespDTO(newFattura.getId(), newFattura.getDataEmissione(),
-                    newFattura.getImporto()
-            );
         }
+
+        Fattura newFattura = this.fatturaService.save(payload);
+
+        return new NewFatturaRespDTO(
+                newFattura.getId(),
+                newFattura.getDataEmissione(),
+                newFattura.getImporto(),
+                newFattura.getStatoFattura().getNome(),
+                newFattura.getCliente().getId()
+        );
     }
 
     @GetMapping("/{fatturaId}")

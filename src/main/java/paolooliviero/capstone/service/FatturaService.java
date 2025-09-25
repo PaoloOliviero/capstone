@@ -8,9 +8,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import paolooliviero.capstone.entities.Cliente;
 import paolooliviero.capstone.entities.Fattura;
+import paolooliviero.capstone.entities.StatoFattura;
 import paolooliviero.capstone.exceptions.NotFoundException;
 import paolooliviero.capstone.payloads.NewFatturaDTO;
+import paolooliviero.capstone.payloads.NewFatturaRespDTO;
 import paolooliviero.capstone.repositories.ClienteRepository;
 import paolooliviero.capstone.repositories.FatturaRepository;
 import paolooliviero.capstone.repositories.StatoFatturaRepository;
@@ -35,20 +38,39 @@ public class FatturaService {
 
 
     public Fattura save(NewFatturaDTO payload) {
-
         Fattura newFattura = new Fattura();
+
+
         newFattura.setImporto(payload.importo());
         newFattura.setDataEmissione(payload.dataEmissione());
-        newFattura.setCliente(clienteRepository.findById(payload.id_cliente()).orElseThrow(() -> new NotFoundException(payload.id_cliente())));
-        return fatturaRepository.save(newFattura);
 
+        Cliente cliente = clienteRepository.findById(payload.id_cliente())
+                .orElseThrow(() -> new NotFoundException(payload.id_cliente()));
+        newFattura.setCliente(cliente);
+
+        StatoFattura stato = statoFatturaRepository.findById(payload.id_statoFattura())
+                .orElseThrow(() -> new NotFoundException(payload.id_statoFattura()));
+        newFattura.setStatoFattura(stato);
+
+        return fatturaRepository.save(newFattura);
     }
 
-    public Page<Fattura> findAll(int pageNumber, int pageSize, String sortBy) {
+    public Page<NewFatturaRespDTO> findAll(int pageNumber, int pageSize, String sortBy) {
         if (pageSize > 50) pageSize = 50;
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending());
-        return this.fatturaRepository.findAll(pageable);
+        Page<Fattura> fatture = fatturaRepository.findAll(pageable);
+
+        return fatture.map(f -> new NewFatturaRespDTO(
+                f.getId(),
+                f.getDataEmissione(),
+                f.getImporto(),
+                f.getStatoFattura() != null ? f.getStatoFattura().getNome() : "N/D",
+                f.getCliente() != null ? f.getCliente().getId() : null
+        ));
     }
+
+
+
 
     public Fattura findById(long fatturaId) {
         return this.fatturaRepository.findById(fatturaId).orElseThrow(() -> new NotFoundException(fatturaId));

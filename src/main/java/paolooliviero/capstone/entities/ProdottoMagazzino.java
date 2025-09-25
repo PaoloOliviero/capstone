@@ -1,5 +1,6 @@
 package paolooliviero.capstone.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -25,8 +26,7 @@ public class ProdottoMagazzino {
     @JoinColumn(name = "magazzino_id")
     private Magazzino magazzino;
     @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name = "carico_id")
+    @JsonBackReference
     private Carico carico;
 
 
@@ -40,7 +40,6 @@ public class ProdottoMagazzino {
         this.prodotto = prodotto;
         this.quantitaDisponibile = quantitaDisponibile;
         this.dataIngresso = dataIngresso;
-        this.carico = carico;
         this.magazzino = magazzino;
 
     }
@@ -93,5 +92,4 @@ public class ProdottoMagazzino {
     public void setCarico(Carico carico) {
         this.carico = carico;
     }
-
 }

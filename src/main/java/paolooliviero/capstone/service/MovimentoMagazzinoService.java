@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import paolooliviero.capstone.entities.*;
 import paolooliviero.capstone.payloads.NewMovimentoMagazzinoDTO;
+import paolooliviero.capstone.payloads.NewMovimentoMagazzinoRespDTO;
 import paolooliviero.capstone.repositories.*;
 
 import java.time.LocalDate;
@@ -99,5 +100,7 @@ public class MovimentoMagazzinoService {
     public List<MovimentoMagazzino> filterByStoricoPercorrenza(Long storicoId) {
         return movimentoRepo.filterByStoricoPercorrenza(storicoId);
     }
+
+
 }
 

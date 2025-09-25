@@ -33,13 +33,11 @@ public class Runner {
             FatturaRepository fatturaRepo,
             OrdineClienteRepository ordineClienteRepo,
             SegmentoRepository segmentoRepo,
-            PasswordEncoder bcrypt
+            PasswordEncoder bcrypt,
+            StatoFatturaRepository statoFatturaRepo
     ) {
         return args -> {
 
-            Prodotto prodotto = new Prodotto();
-            prodotto.setNome("Prodotto Test");
-            prodottoRepo.save(prodotto);
 
             Magazzino magazzinoPrincipale = new Magazzino();
             magazzinoPrincipale.setCapacitaTotale(1000);
@@ -49,6 +47,20 @@ public class Runner {
             Ruolo ruoloUser = new Ruolo();
             ruoloUser.setNome("USER");
             ruoloRepo.save(ruoloUser);
+
+            StatoFattura statoEmessa = new StatoFattura();
+            statoEmessa.setNome("EMESSA");
+
+            StatoFattura statoPagata = new StatoFattura();
+            statoPagata.setNome("PAGATA");
+
+            StatoFattura statoScaduta = new StatoFattura();
+            statoScaduta.setNome("SCADUTA");
+
+            statoFatturaRepo.save(statoEmessa);
+            statoFatturaRepo.save(statoPagata);
+            statoFatturaRepo.save(statoScaduta);
+
 
             Utente utente1 = new Utente();
             utente1.setEmail("paolo@example.com");
@@ -90,6 +102,12 @@ public class Runner {
 
             List<Carico> carichi = new ArrayList<>();
             Spedizione ultimaSpedizione = null;
+
+            Prodotto prodotto = new Prodotto();
+            prodotto.setNome("Prodotto Test");
+            prodotto.setPrezzoUnitario(99.99);
+            prodotto.setCategoria("Elettronica");
+            prodottoRepo.save(prodotto);
 
             for (int i = 1; i <= 5; i++) {
                 Magazzino magazzinoOrigine = new Magazzino();
@@ -156,7 +174,11 @@ public class Runner {
             Fattura fattura = new Fattura();
             fattura.setImporto(1999.99);
             fattura.setDataEmissione(LocalDate.now().minusDays(1));
+            fattura.setStatoFattura(statoEmessa);
+            fattura.setCliente(cliente1);
             fatturaRepo.save(fattura);
+            fatturaRepo.save(fattura);
+
 
             OrdineCliente ordineCliente = new OrdineCliente();
             ordineCliente.setDataOrdine(LocalDate.now());
@@ -167,8 +189,11 @@ public class Runner {
             ordineCliente.setSpedizione(ultimaSpedizione);
             ordineCliente.setCarico(carichi.get(0));
             ordineCliente.setProdotto(List.of(prodotto));
-
             ordineClienteRepo.save(ordineCliente);
+
+            prodotto.setOrdineCliente(ordineCliente);
+            prodottoRepo.save(prodotto); // ✅ aggiorna il prodotto con l’ordine
+
 
             System.out.println("Runner completato con successo.");
         };

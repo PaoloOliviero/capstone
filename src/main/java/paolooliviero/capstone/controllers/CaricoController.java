@@ -3,6 +3,9 @@ package paolooliviero.capstone.controllers;
 import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -24,11 +27,11 @@ public class CaricoController {
     private CaricoService caricoService;
 
     @GetMapping
-//    @PreAuthorize("hasAuthority('')")
-    public Page<Carico> findAll(@RequestParam(defaultValue = "0") int page,
-                                @RequestParam(defaultValue = "10") int size,
-                                @RequestParam(defaultValue = "id") String sortBy) {
-        return caricoService.findAll(page, size, sortBy);
+    public Page<NewCaricoRespDTO> findAllConRelazioniDTO(@RequestParam(defaultValue = "0") int page,
+                                                         @RequestParam(defaultValue = "10") int size,
+                                                         @RequestParam(defaultValue = "id") String sortBy) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+        return caricoService.findAllConRelazioniDTO(pageable);
     }
 
     @PostMapping("/creacarico")
@@ -93,11 +96,6 @@ public class CaricoController {
     @GetMapping("/con-relazioni")
     public List<Carico> getAllConRelazioni() {
         return caricoService.findAllConRelazioni();
-    }
-
-    @GetMapping("/con-relazionidto")
-    public List<NewCaricoRespDTO> getAllConRelazioniDTO() {
-        return caricoService.findAllConRelazioniDTO();
     }
 
 }

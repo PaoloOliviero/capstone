@@ -11,6 +11,7 @@ import paolooliviero.capstone.payloads.NewRichiestaProdottoRespDTO;
 import paolooliviero.capstone.repositories.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -73,10 +74,14 @@ public class RichiestaProdottoService {
 
         Carico carico = new Carico();
         carico.setDescrizione("Carico da richiesta manuale per prodotto ID " + prodotto.getId());
-        carico.setVolume(prodotto.getVolume());
-        carico.setProdottoMagazzino(Collections.singletonList(prodottoMagazzino));
+        carico.setVolume(payload.quantitaRichiesta());
         carico.setMezzoDiTrasporto(mezzo);
+
+        carico.setProdottoMagazzino(new ArrayList<>(List.of(prodottoMagazzino)));
+        prodottoMagazzino.setCarico(carico);
+
         caricoRepository.save(carico);
+        prodottoMagazzinoRepository.save(prodottoMagazzino);
 
         RichiestaProdotto richiesta = new RichiestaProdotto();
         richiesta.setQuantitaRichiesta(payload.quantitaRichiesta());
@@ -106,11 +111,21 @@ public class RichiestaProdottoService {
         richiestaProdottoRepository.delete(found);
     }
 
-    public Page<RichiestaProdotto> findAll(int pageNumber, int pageSize, String sortBy) {
-        if (pageSize > 50) pageSize = 50;
-        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).ascending());
-        return richiestaProdottoRepository.findAll(pageable);
+    public Page<NewRichiestaProdottoRespDTO> findAll(int page, int size, String sortBy) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy).descending());
+        Page<RichiestaProdotto> richieste = richiestaProdottoRepository.findAll(pageable);
+
+        return richieste.map(r -> new NewRichiestaProdottoRespDTO(
+                r.getId(),
+                r.getQuantitaRichiesta(),
+                r.getDataRichiesta(),
+                r.getMotivazione(),
+                r.getProdottoMagazzino().getId(),
+                r.getMagazzino().getId(),
+                r.getRichiestoDa().getId()
+        ));
     }
+
 
     public RichiestaProdotto findById(long id) {
         return richiestaProdottoRepository.findById(id)

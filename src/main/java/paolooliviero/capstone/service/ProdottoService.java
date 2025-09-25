@@ -22,30 +22,44 @@ public class ProdottoService {
     private OrdineClienteRepository ordineClienteRepository;
 
     public NewProdottoRespDTO save(NewProdottoDTO payload) {
-        OrdineCliente ordine = ordineClienteRepository.findById(payload.ordineClienteId())
-                .orElseThrow(() -> new NotFoundException("OrdineCliente non trovato"));
+        Prodotto prodotto = new Prodotto();
+        prodotto.setNome(payload.nome());
+        prodotto.setPrezzoUnitario(payload.prezzoUnitario());
+        prodotto.setCategoria(payload.categoria());
 
-        Prodotto nuovo = new Prodotto();
-        nuovo.setNome(payload.nome());
-        nuovo.setPrezzoUnitario(payload.prezzoUnitario());
-        nuovo.setCategoria(payload.categoria());
-        nuovo.setOrdineCliente(ordine);
+        if (payload.ordineClienteId() != null) {
+            OrdineCliente ordine = ordineClienteRepository.findById(payload.ordineClienteId())
+                    .orElseThrow(() -> new NotFoundException(payload.ordineClienteId()));
+            prodotto.setOrdineCliente(ordine);
+        }
 
-        Prodotto salvato = prodottoRepository.save(nuovo);
+        Prodotto nuovoProdotto = prodottoRepository.save(prodotto);
 
         return new NewProdottoRespDTO(
-                salvato.getId(),
-                salvato.getNome(),
-                salvato.getPrezzoUnitario(),
-                salvato.getCategoria(),
-                salvato.getOrdineCliente().getId()
+                nuovoProdotto.getId(),
+                nuovoProdotto.getNome(),
+                nuovoProdotto.getPrezzoUnitario(),
+                nuovoProdotto.getCategoria(),
+                nuovoProdotto.getOrdineCliente() != null ? nuovoProdotto.getOrdineCliente().getId() : null
         );
     }
 
-    public Page<Prodotto> findAll(int page, int size, String sortBy) {
-        Pageable pageable = PageRequest.of(page, Math.min(size, 50), Sort.by(sortBy).descending());
-        return prodottoRepository.findAll(pageable);
+    public Page<NewProdottoRespDTO> findAll(int page, int size, String sortBy) {
+        if (size > 50) size = 50; // limite di sicurezza
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy).descending());
+        Page<Prodotto> prodotti = prodottoRepository.findAll(pageable);
+
+        return prodotti.map(p -> new NewProdottoRespDTO(
+                p.getId(),
+                p.getNome(),
+                p.getPrezzoUnitario(),
+                p.getCategoria(),
+                p.getOrdineCliente() != null ? p.getOrdineCliente().getId() : null
+        ));
     }
+
+
 
     public Prodotto findById(long id) {
         return prodottoRepository.findById(id).orElseThrow(() -> new NotFoundException(id));

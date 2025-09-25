@@ -22,9 +22,9 @@ public class ProdottoController {
     private ProdottoService prodottoService;
 
     @GetMapping
-    public Page<Prodotto> findAll(@RequestParam(defaultValue = "0") int page,
-                                  @RequestParam(defaultValue = "10") int size,
-                                  @RequestParam(defaultValue = "id") String sortBy) {
+    public Page<NewProdottoRespDTO> findAll(@RequestParam(defaultValue = "0") int page,
+                                         @RequestParam(defaultValue = "10") int size,
+                                         @RequestParam(defaultValue = "id") String sortBy) {
         return prodottoService.findAll(page, size, sortBy);
     }
 
@@ -34,8 +34,10 @@ public class ProdottoController {
         if (validationResult.hasErrors()) {
             throw new ValidationException("Errore di validazione");
         }
+
         return prodottoService.save(payload);
     }
+
 
     @GetMapping("/{prodottoId}")
     public Prodotto getById(@PathVariable long prodottoId) {

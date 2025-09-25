@@ -3,6 +3,9 @@ package paolooliviero.capstone.controllers;
 import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,6 +19,7 @@ import paolooliviero.capstone.payloads.NewMezzoDiTrasportoDTO;
 import paolooliviero.capstone.payloads.NewMezzoDiTrasportoRespDTO;
 import paolooliviero.capstone.payloads.NewMovimentoMagazzinoDTO;
 import paolooliviero.capstone.payloads.NewMovimentoMagazzinoRespDTO;
+import paolooliviero.capstone.repositories.MovimentoMagazzinoRepository;
 import paolooliviero.capstone.service.MezzoDiTrasportoService;
 import paolooliviero.capstone.service.MovimentoMagazzinoService;
 
@@ -28,6 +32,7 @@ public class MovimentoMagazzinoController {
 
     @Autowired
     private MovimentoMagazzinoService movimentoMagazzinoService;
+    private MovimentoMagazzinoRepository movimentoMagazzinoRepository;
 
     @GetMapping
 //    @PreAuthorize("hasAuthority('')")
@@ -36,6 +41,7 @@ public class MovimentoMagazzinoController {
                                             @RequestParam(defaultValue = "id") String sortBy) {
         return movimentoMagazzinoService.findAll(page, size, sortBy);
     }
+
 
     @PostMapping ("/creamovimento")
     @ResponseStatus(HttpStatus.CREATED)
