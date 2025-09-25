@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import paolooliviero.capstone.entities.Cliente;
 import paolooliviero.capstone.exceptions.NotFoundException;
 import paolooliviero.capstone.payloads.NewClienteDTO;
+import paolooliviero.capstone.payloads.NewClienteRespDTO;
 import paolooliviero.capstone.repositories.ClienteRepository;
 
 import java.time.LocalDate;
@@ -36,10 +37,19 @@ public class ClienteService {
         return clienteRepository.save(newCliente);
     }
 
-    public Page<Cliente> findAll(int pageNumber, int pageSize, String sortBy) {
-        if (pageSize > 50) pageSize = 50;
-        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).ascending());
-        return this.clienteRepository.findAll(pageable);
+    public Page<NewClienteRespDTO> findAll(int pageNumber, int pageSize, String sortBy) {
+        Pageable pageable = PageRequest.of(pageNumber, Math.min(pageSize, 50), Sort.by(sortBy).ascending());
+        return clienteRepository.findAll(pageable)
+                .map(cliente -> new NewClienteRespDTO(
+                        cliente.getId(),
+                        cliente.getRagioneSociale(),
+                        cliente.getPartitaIva(),
+                        cliente.getEmail(),
+                        cliente.getDataInserimento(),
+                        cliente.getDataUltimoContatto(),
+                        cliente.getFatturatoAnnuale(),
+                        cliente.getTelefonoContatto()
+                ));
     }
 
     public Cliente findById(long Id) {

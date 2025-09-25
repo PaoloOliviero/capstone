@@ -37,6 +37,10 @@ public class Runner {
     ) {
         return args -> {
 
+            Prodotto prodotto = new Prodotto();
+            prodotto.setNome("Prodotto Test");
+            prodottoRepo.save(prodotto);
+
             Magazzino magazzinoPrincipale = new Magazzino();
             magazzinoPrincipale.setCapacitaTotale(1000);
             magazzinoPrincipale.setCapacitaOccupata(0);
@@ -70,6 +74,8 @@ public class Runner {
             cliente1.setTelefonoContatto("222222222");
             cliente1.setPartitaIva("IT12345678901");
             cliente1.setFatturatoAnnuale(1_000_000.0);
+            cliente1.setDataInserimento(LocalDate.of(2023, 1, 1));
+            cliente1.setDataUltimoContatto(LocalDate.of(2023, 9, 15));
             clienteRepo.save(cliente1);
 
             Cliente cliente2 = new Cliente();
@@ -78,6 +84,8 @@ public class Runner {
             cliente2.setTelefonoContatto("111111111");
             cliente2.setPartitaIva("IT98765432109");
             cliente2.setFatturatoAnnuale(2_500_000.0);
+            cliente2.setDataInserimento(LocalDate.of(2023, 2, 1));
+            cliente2.setDataUltimoContatto(LocalDate.of(2023, 9, 20));
             clienteRepo.save(cliente2);
 
             List<Carico> carichi = new ArrayList<>();
@@ -109,12 +117,6 @@ public class Runner {
                 caricoRepo.save(carico);
                 carichi.add(carico);
 
-                Prodotto prodotto = new Prodotto();
-                prodotto.setNome("Prodotto " + i);
-                prodotto.setPrezzoUnitario(10.0 * i);
-                prodotto.setCategoria(i % 2 == 0 ? "Elettronica" : "Alimentari");
-                prodottoRepo.save(prodotto);
-
                 ProdottoMagazzino pm = new ProdottoMagazzino();
                 pm.setQuantitaDisponibile(50.0 * i);
                 pm.setDataIngresso(LocalDate.now().minusDays(i));
@@ -143,22 +145,6 @@ public class Runner {
                 spedizioneRepo.save(spedizione);
 
                 ultimaSpedizione = spedizione;
-
-                Fattura fattura = new Fattura();
-                fattura.setImporto(1999.99);
-                fattura.setDataEmissione(LocalDate.now().minusDays(1));
-                fatturaRepo.save(fattura);
-
-                OrdineCliente ordineCliente = new OrdineCliente();
-                ordineCliente.setDataOrdine(LocalDate.now());
-                ordineCliente.setStatoOrdine(StatoOrdine.APPROVATO);
-                ordineCliente.setIndirizzoSpedizione("Via delle Industrie " + i);
-                ordineCliente.setCliente(i % 2 == 0 ? cliente1 : cliente2);
-                ordineCliente.setSpedizione(spedizione);
-                ordineCliente.setFattura(fattura);
-                ordineCliente.setCarico(carico);
-                ordineCliente.setProdotto(List.of(prodotto));
-                ordineClienteRepo.save(ordineCliente);
             }
 
             Segmento segmento = new Segmento();
@@ -166,6 +152,23 @@ public class Runner {
             segmento.setCriterio("Fatturato > 1M");
             segmento.setTipologiaSegmento(TipologiaSegmento.ALTA_PRIORITA);
             segmentoRepo.save(segmento);
+
+            Fattura fattura = new Fattura();
+            fattura.setImporto(1999.99);
+            fattura.setDataEmissione(LocalDate.now().minusDays(1));
+            fatturaRepo.save(fattura);
+
+            OrdineCliente ordineCliente = new OrdineCliente();
+            ordineCliente.setDataOrdine(LocalDate.now());
+            ordineCliente.setStatoOrdine(StatoOrdine.APPROVATO);
+            ordineCliente.setIndirizzoSpedizione("Via delle Industrie 42");
+            ordineCliente.setCliente(cliente1);
+            ordineCliente.setFattura(fattura);
+            ordineCliente.setSpedizione(ultimaSpedizione);
+            ordineCliente.setCarico(carichi.get(0));
+            ordineCliente.setProdotto(List.of(prodotto));
+
+            ordineClienteRepo.save(ordineCliente);
 
             System.out.println("Runner completato con successo.");
         };

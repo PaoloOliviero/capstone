@@ -25,9 +25,9 @@ public class ClienteController {
 
     @GetMapping
 //    @PreAuthorize("hasAuthority('')")
-    public Page<Cliente> findAll(@RequestParam(defaultValue = "0") int page,
-                                 @RequestParam(defaultValue = "10") int size,
-                                 @RequestParam(defaultValue = "id") String sortBy) {
+    public Page<NewClienteRespDTO> findAll(@RequestParam(defaultValue = "0") int page,
+                                           @RequestParam(defaultValue = "10") int size,
+                                           @RequestParam(defaultValue = "id") String sortBy) {
         return clienteService.findAll(page, size, sortBy);
     }
 
@@ -38,7 +38,15 @@ public class ClienteController {
             throw new ValidationException("Validazione fallita");
         }
         Cliente newCliente = clienteService.save(payload);
-        return new NewClienteRespDTO(newCliente.getId());
+        return new NewClienteRespDTO(    newCliente.getId(),
+                newCliente.getRagioneSociale(),
+                newCliente.getPartitaIva(),
+                newCliente.getEmail(),
+                newCliente.getDataInserimento(),
+                newCliente.getDataUltimoContatto(),
+                newCliente.getFatturatoAnnuale(),
+                newCliente.getTelefonoContatto()
+        );
     }
 
     @GetMapping("/{clienteId}")
@@ -81,4 +89,3 @@ public class ClienteController {
     }
 
 }
-
