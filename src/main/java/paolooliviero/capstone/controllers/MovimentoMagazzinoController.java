@@ -35,11 +35,24 @@ public class MovimentoMagazzinoController {
     private MovimentoMagazzinoRepository movimentoMagazzinoRepository;
 
     @GetMapping
-//    @PreAuthorize("hasAuthority('')")
-    public Page<MovimentoMagazzino> findAll(@RequestParam(defaultValue = "0") int page,
-                                            @RequestParam(defaultValue = "10") int size,
-                                            @RequestParam(defaultValue = "id") String sortBy) {
-        return movimentoMagazzinoService.findAll(page, size, sortBy);
+    public Page<NewMovimentoMagazzinoRespDTO> findAllDTO(@RequestParam(defaultValue = "0") int page,
+                                                         @RequestParam(defaultValue = "10") int size,
+                                                         @RequestParam(defaultValue = "id") String sortBy) {
+        Page<MovimentoMagazzino> movimenti = movimentoMagazzinoService.findAll(page, size, sortBy);
+
+        return movimenti.map(movimento -> new NewMovimentoMagazzinoRespDTO(
+                movimento.getId(),
+                movimento.getProdottoMagazzino().getId(),
+                movimento.getMagazzino().getId(),
+                movimento.getQuantity(),
+                movimento.getRegistratoDa().getNome(),
+                movimento.getDataRegistrazione(),
+                null, // storicoPercorrenzaId rimosso
+                null, // mezzoId rimosso
+                null, // magazzinoEntrataId rimosso
+                null, // magazzinoUscitaId rimosso
+                movimento.getRegistratoDa().getId()
+        ));
     }
 
 
