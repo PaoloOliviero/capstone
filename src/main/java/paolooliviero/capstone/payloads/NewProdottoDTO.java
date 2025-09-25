@@ -9,11 +9,8 @@ import java.util.List;
 public record NewProdottoDTO (
         String nome,
         Double prezzoUnitario,
-        Double volume,
         String categoria,
-        List<NewProdottoMagazzinoDTO> prodottoMagazzino,
-        List<NewMovimentoMagazzinoDTO> movimentoMagazzino,
-        NewOrdineClienteDTO ordinecliente
+        Long ordineClienteId
 ) {
 }
 

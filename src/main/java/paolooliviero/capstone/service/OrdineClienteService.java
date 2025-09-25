@@ -12,10 +12,7 @@ import paolooliviero.capstone.entities.*;
 import paolooliviero.capstone.enums.StatoOrdine;
 import paolooliviero.capstone.enums.TipologiaSegmento;
 import paolooliviero.capstone.exceptions.NotFoundException;
-import paolooliviero.capstone.payloads.NewMezzoDiTrasportoDTO;
-import paolooliviero.capstone.payloads.NewNotificaRespDTO;
-import paolooliviero.capstone.payloads.NewOrdineClienteDTO;
-import paolooliviero.capstone.payloads.NewProdottoDTO;
+import paolooliviero.capstone.payloads.*;
 import paolooliviero.capstone.repositories.*;
 
 import java.time.LocalDateTime;
@@ -148,7 +145,6 @@ public class OrdineClienteService {
 
         ordine.setSegmento(segmento);
 
-        // 🔔 Notifica
         NewNotificaRespDTO notifica = new NewNotificaRespDTO(
                 null,
                 "Segmentazione ordine",
@@ -161,12 +157,22 @@ public class OrdineClienteService {
         );
         ticketService.creaTicketPerTutti(ordine);
 
-        // 🎫 Ticket
         notificaService.creaNotificaPerTutti(notifica, ordine);
 
         return ordine;
     }
 
-
+    public List<NewOrdineClienteRespDTO> findAllConRelazioniDTO() {
+        return ordineClienteRepository.findAllWithJoin().stream()
+                .map(ordine -> new NewOrdineClienteRespDTO(
+                        ordine.getId(),
+                        ordine.getDataOrdine(),
+                        ordine.getStatoOrdine(),
+                        ordine.getCliente() != null ? ordine.getCliente().getRagioneSociale() : null,
+                        ordine.getFattura() != null ? ordine.getFattura().getImporto() : null,
+                        ordine.getSegmento() != null ? ordine.getSegmento().getId() : null
+                )).toList();
+    }
 }
+
 

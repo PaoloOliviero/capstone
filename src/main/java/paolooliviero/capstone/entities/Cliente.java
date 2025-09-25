@@ -144,6 +144,7 @@ public class Cliente {
     public void setSegmento(Segmento segmento) {
         this.segmento = segmento;
     }
+
 }
 
 

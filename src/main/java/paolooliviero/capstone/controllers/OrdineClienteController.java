@@ -14,8 +14,11 @@ import paolooliviero.capstone.entities.Utente;
 import paolooliviero.capstone.payloads.NewOrdineClienteDTO;
 import paolooliviero.capstone.payloads.NewOrdineClienteRespDTO;
 import paolooliviero.capstone.payloads.OrdineClassificatoDTO;
+import paolooliviero.capstone.repositories.OrdineClienteRepository;
 import paolooliviero.capstone.service.OrdineClienteService;
 import paolooliviero.capstone.service.UtenteService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/ordinicliente")
@@ -26,6 +29,9 @@ public class OrdineClienteController {
 
     @Autowired
     private UtenteService utenteService;
+
+    @Autowired
+    private OrdineClienteRepository ordineClienteRepository;
 
     @GetMapping
     public Page<OrdineCliente> findAll(@RequestParam(defaultValue = "0") int page,
@@ -43,7 +49,14 @@ public class OrdineClienteController {
             throw new ValidationException("Validazione fallita");
         }
         OrdineCliente newOrdineCliente = ordineClienteService.save(payload);
-        return new NewOrdineClienteRespDTO(newOrdineCliente.getId());
+        return new NewOrdineClienteRespDTO(newOrdineCliente.getId(),
+                newOrdineCliente.getDataOrdine(),
+                newOrdineCliente.getStatoOrdine(),
+                newOrdineCliente.getCliente() != null ? newOrdineCliente.getCliente().getRagioneSociale() : null,
+                newOrdineCliente.getFattura() != null ? newOrdineCliente.getFattura().getImporto() : null,
+                newOrdineCliente.getSegmento() != null ? newOrdineCliente.getSegmento().getId() : null
+
+        );
     }
 
 
@@ -69,6 +82,12 @@ public class OrdineClienteController {
                                             @RequestParam Long segmentoId) {
         return new OrdineClassificatoDTO(ordineClienteService.classificaOrdine(ordineId, segmentoId));
     }
+
+    @GetMapping("/con-relazioni")
+    public List<NewOrdineClienteRespDTO> findAllConRelazioniDTO() {
+        return ordineClienteService.findAllConRelazioniDTO();
+    }
+
 }
 
 
