@@ -53,7 +53,8 @@ public class MovimentoMagazzinoService {
         storico.setSpedizione(null);
         storico.setMagazzinoEntrata(magazzinoCorrente);
         storico.setMagazzinoUscita(magazzinoPrecedente);
-        storico.setTempoEffettivoTratta(0.0);
+        storico.setDataRegistrazione(payload.dataRegistrazione());
+        storico.setProdottoMagazzino(prodottoMagazzino);
         storicoRepo.save(storico);
 
         MovimentoMagazzino movimento = new MovimentoMagazzino();

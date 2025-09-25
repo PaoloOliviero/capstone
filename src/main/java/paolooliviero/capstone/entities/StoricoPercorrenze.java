@@ -3,6 +3,8 @@ package paolooliviero.capstone.entities;
 import jakarta.persistence.*;
 import lombok.ToString;
 
+import java.time.LocalDate;
+
 @Entity
 @ToString
 public class StoricoPercorrenze {
@@ -23,7 +25,9 @@ public class StoricoPercorrenze {
     private Magazzino magazzinoUscita;
     @OneToOne(mappedBy = "storicoPercorrenza")
     private MovimentoMagazzino movimento;
-
+    @ManyToOne
+    private ProdottoMagazzino prodottoMagazzino;
+    private LocalDate dataRegistrazione;
 
 
     public StoricoPercorrenze() {
@@ -87,5 +91,29 @@ public class StoricoPercorrenze {
 
     public void setMagazzinoUscita(Magazzino magazzinoUscita) {
         this.magazzinoUscita = magazzinoUscita;
+    }
+
+    public MovimentoMagazzino getMovimento() {
+        return movimento;
+    }
+
+    public void setMovimento(MovimentoMagazzino movimento) {
+        this.movimento = movimento;
+    }
+
+    public ProdottoMagazzino getProdottoMagazzino() {
+        return prodottoMagazzino;
+    }
+
+    public void setProdottoMagazzino(ProdottoMagazzino prodottoMagazzino) {
+        this.prodottoMagazzino = prodottoMagazzino;
+    }
+
+    public LocalDate getDataRegistrazione() {
+        return dataRegistrazione;
+    }
+
+    public void setDataRegistrazione(LocalDate dataRegistrazione) {
+        this.dataRegistrazione = dataRegistrazione;
     }
 }

@@ -131,5 +131,6 @@ public class MovimentoMagazzino {
     public void setStoricoPercorrenza(StoricoPercorrenze storicoPercorrenza) {
         this.storicoPercorrenza = storicoPercorrenza;
     }
+
 }
 
