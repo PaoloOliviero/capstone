@@ -165,11 +165,23 @@ public class Runner {
                 ultimaSpedizione = spedizione;
             }
 
-            Segmento segmento = new Segmento();
-            segmento.setNome("Premium");
-            segmento.setCriterio("Fatturato > 1M");
-            segmento.setTipologiaSegmento(TipologiaSegmento.ALTA_PRIORITA);
-            segmentoRepo.save(segmento);
+            Segmento segmento1 = new Segmento();
+            segmento1.setNome("Premium");
+            segmento1.setCriterio("Ordine > 500");
+            segmento1.setTipologiaSegmento(TipologiaSegmento.ALTA_PRIORITA);
+            segmentoRepo.save(segmento1);
+
+            Segmento segmento2 = new Segmento();
+            segmento2.setNome("Urgente");
+            segmento2.setCriterio("Ordini di Rilevanza politica/militare");
+            segmento2.setTipologiaSegmento(TipologiaSegmento.ALTA_URGENZA);
+            segmentoRepo.save(segmento2);
+
+            Segmento segmento3 = new Segmento();
+            segmento3.setNome("Ricorrenti");
+            segmento3.setCriterio("Numero Ordini da stesso cliente > 200");
+            segmento3.setTipologiaSegmento(TipologiaSegmento.ALTA_RICORRENZA);
+            segmentoRepo.save(segmento3);
 
             Fattura fattura = new Fattura();
             fattura.setImporto(1999.99);

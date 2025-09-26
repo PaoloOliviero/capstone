@@ -12,8 +12,8 @@ public class Segmento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nome;     // es. "VIP", "B2B", "Logistica Prioritaria"
-    private String criterio; // es. "fatturato > 10000"
+    private String nome;
+    private String criterio;
 
     @OneToMany(mappedBy = "segmento")
     private List<Cliente> clienti;
