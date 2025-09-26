@@ -4,6 +4,7 @@ import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -43,6 +44,7 @@ public class SegmentoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public NewSegmentoRespDTO save(@RequestBody @Validated NewSegmentoDTO payload, BindingResult validationResult) {
         if (validationResult.hasErrors()) {
             throw new ValidationException("Errore validazione segmento");
@@ -53,22 +55,26 @@ public class SegmentoController {
     }
 
     @GetMapping("/{segmentoId}")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public Segmento getById(@PathVariable long segmentoId) {
         return segmentoService.findById(segmentoId);
     }
 
     @PutMapping("/{segmentoId}")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public Segmento getByIdAndUpdate(@PathVariable long segmentoId, @RequestBody NewSegmentoDTO payload) {
         return segmentoService.findByIdAndUpdate(segmentoId, payload);
     }
 
     @DeleteMapping("/{segmentoId}")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void getByIdAndDelete(@PathVariable long segmentoId) {
         segmentoService.findByIdAndDelete(segmentoId);
     }
 
     @GetMapping("/filtro/tipologia")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public List<Segmento> filterByTipologia(@RequestParam TipologiaSegmento tipoSegmento) {
         return segmentoService.filterByTipologia(tipoSegmento);
     }

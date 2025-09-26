@@ -4,6 +4,7 @@ import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/fatture")
+@PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
 public class FatturaController {
 
     @Autowired
@@ -31,9 +33,9 @@ public class FatturaController {
     }
 
 
-        @PostMapping("/creafattura")
+    @PostMapping("/creafattura")
     @ResponseStatus(HttpStatus.CREATED)
-// @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public NewFatturaRespDTO save(@RequestBody @Validated NewFatturaDTO payload, BindingResult validationResult) {
         if (validationResult.hasErrors()) {
             throw new ValidationException("Errore");
@@ -51,19 +53,19 @@ public class FatturaController {
     }
 
     @GetMapping("/{fatturaId}")
-//    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public Fattura getById(@PathVariable long fatturaId) {
         return this.fatturaService.findById(fatturaId);
     }
 
     @PutMapping("/{fatturaId}")
-//    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public Fattura getByIdAndUpdate(@PathVariable long userId, @RequestBody NewFatturaDTO payload) {
         return this.fatturaService.findByIdAndUpdate(userId, payload);
     }
 
     @DeleteMapping("/{fatturaId}")
-//    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void getByIdAndDelete(@PathVariable long fatturaId) {
         this.fatturaService.findByIdAndDelete(fatturaId);
@@ -71,21 +73,25 @@ public class FatturaController {
 
 
     @GetMapping("/filtro/importo")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public List<Fattura> filtroImporto(@RequestParam double importoMax) {
         return fatturaService.filtroImporto(importoMax);
     }
 
     @GetMapping("/filtro/emissione")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public List<Fattura> filtroEmissione(@RequestParam LocalDate dataEmissioneMax) {
         return fatturaService.filtroEmissione(dataEmissioneMax);
     }
 
     @GetMapping("/filtro/stato")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public List<Fattura> filtroFattura(@RequestParam String statoNome) {
         return fatturaService.filtroFattura(statoNome);
     }
 
     @GetMapping("/filtro/cliente")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public List<Fattura> filtroClienteId(@RequestParam long clienteId) {
         return fatturaService.filtroClienteId(clienteId);
     }

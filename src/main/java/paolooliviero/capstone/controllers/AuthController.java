@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import paolooliviero.capstone.entities.Ruolo;
 import paolooliviero.capstone.entities.Utente;
 import paolooliviero.capstone.exceptions.ValidationException;
 import paolooliviero.capstone.payloads.LoginDTO;
@@ -13,6 +14,8 @@ import paolooliviero.capstone.payloads.NewUtenteRespDTO;
 import paolooliviero.capstone.payloads.UtenteDTO;
 import paolooliviero.capstone.service.AuthService;
 import paolooliviero.capstone.service.UtenteService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
@@ -25,8 +28,11 @@ public class AuthController {
     @PostMapping("/login")
     public LoginRespDTO login(@RequestBody LoginDTO body) {
         String accessToken = authService.checkCredentialsAndGenerateToken(body);
-        return new LoginRespDTO(accessToken);
+        Utente found = utenteService.findByEmail(body.email());
+        List<String> ruoli = found.getRuoli().stream().map(Ruolo::getNome).toList();
+        return new LoginRespDTO(accessToken, ruoli);
     }
+
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)

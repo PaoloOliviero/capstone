@@ -4,6 +4,7 @@ import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class AutistaController {
     private AutistaService autistaService;
 
     @GetMapping
-//    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasRole('USER_ADMIN')")
     public Page<Autista> findAll(@RequestParam(defaultValue = "0") int page,
                                  @RequestParam(defaultValue = "10") int size,
                                  @RequestParam(defaultValue = "id") String sortBy) {
@@ -26,6 +27,7 @@ public class AutistaController {
     }
 
     @PostMapping("/creaautista")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     @ResponseStatus(HttpStatus.CREATED)
     public NewAutistaRespDTO save(@RequestBody @Validated NewAutistaDTO payload, BindingResult validationResult) {
         if (validationResult.hasErrors()) {
@@ -36,19 +38,19 @@ public class AutistaController {
     }
 
     @GetMapping("/{autistaId}")
-//    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public Autista getById(@PathVariable long autistaId) {
         return autistaService.findById(autistaId);
     }
 
     @PutMapping("/{autistaId}")
-//    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public Autista getByIdAndUpdate(@PathVariable long autistaId, @RequestBody NewAutistaDTO payload) {
         return this.autistaService.findByIdAndUpdate(autistaId, payload);
     }
 
     @DeleteMapping("/{autistaId}")
-//    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void getByIdAndDelete(@PathVariable long autistaId) {
         this.autistaService.findByIdAndDelete(autistaId);

@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,7 @@ public class CaricoController {
     private CaricoService caricoService;
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public Page<NewCaricoRespDTO> findAllConRelazioniDTO(@RequestParam(defaultValue = "0") int page,
                                                          @RequestParam(defaultValue = "10") int size,
                                                          @RequestParam(defaultValue = "id") String sortBy) {
@@ -36,6 +38,7 @@ public class CaricoController {
 
     @PostMapping("/creacarico")
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public NewCaricoRespDTO save(@RequestBody @Validated NewCaricoDTO payload, BindingResult validationResult) {
         if (validationResult.hasErrors()) {
             throw new ValidationException("Validazione fallita");
@@ -60,13 +63,13 @@ public class CaricoController {
     }
 
     @GetMapping("/{caricoId}")
-//    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public Carico getById(@PathVariable long caricoId) {
         return caricoService.findById(caricoId);
     }
 
     @PutMapping("/{caricoId}")
-//    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public Carico getByIdAndUpdate(@PathVariable long caricoId, @RequestBody NewCaricoDTO payload) {
         return this.caricoService.findByIdAndUpdate(caricoId, payload);
     }

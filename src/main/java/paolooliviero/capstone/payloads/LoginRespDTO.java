@@ -1,4 +1,7 @@
 package paolooliviero.capstone.payloads;
 
-public record LoginRespDTO(String accessToken) {
+import java.util.List;
+
+public record LoginRespDTO(String accessToken, List<String> ruoli) {
 }
+

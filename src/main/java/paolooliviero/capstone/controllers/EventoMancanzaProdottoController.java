@@ -4,6 +4,7 @@ import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class EventoMancanzaProdottoController {
     private EventoMancanzaProdottoService eventoMancanzaProdottoService;
 
     @GetMapping
-//    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public Page<EventoMancanzaProdotto> findAll(@RequestParam(defaultValue = "0") int page,
                                                 @RequestParam(defaultValue = "10") int size,
                                                 @RequestParam(defaultValue = "id") String sortBy) {
@@ -28,6 +29,7 @@ public class EventoMancanzaProdottoController {
     }
 
     @PostMapping("/creaeventomancanzaprodotto")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     @ResponseStatus(HttpStatus.CREATED)
     public NewEventoMancanzaProdottoRespDTO save(@RequestBody @Validated NewEventoMancanzaProdottoDTO payload, BindingResult validationResult) {
         if (validationResult.hasErrors()) {
@@ -38,19 +40,19 @@ public class EventoMancanzaProdottoController {
     }
 
     @GetMapping("/{eventoMancanzaProdottoId}")
-//    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public EventoMancanzaProdotto getById(@PathVariable long eventoMancanzaProdottoId) {
         return eventoMancanzaProdottoService.findById(eventoMancanzaProdottoId);
     }
 
     @PutMapping("/{eventoMancanzaProdottoId}")
-//    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public EventoMancanzaProdotto getByIdAndUpdate(@PathVariable long eventoMancanzaProdottoId, @RequestBody NewEventoMancanzaProdottoDTO payload) {
         return this.eventoMancanzaProdottoService.findByIdAndUpdate(eventoMancanzaProdottoId, payload);
     }
 
     @DeleteMapping("/{EventoMancanzaProdottoId}")
-//    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void getByIdAndDelete(@PathVariable long eventoMancanzaProdottoId) {
         this.eventoMancanzaProdottoService.findByIdAndDelete(eventoMancanzaProdottoId);

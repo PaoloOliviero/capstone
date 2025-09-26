@@ -4,6 +4,7 @@ import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
@@ -34,6 +35,7 @@ public class OrdineClienteController {
     private OrdineClienteRepository ordineClienteRepository;
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public Page<OrdineCliente> findAll(@RequestParam(defaultValue = "0") int page,
                                        @RequestParam(defaultValue = "10") int size,
                                        @RequestParam(defaultValue = "id") String sortBy) {
@@ -42,6 +44,7 @@ public class OrdineClienteController {
 
 
     @PostMapping("/creamagazzino")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     @ResponseStatus(HttpStatus.CREATED)
     public NewOrdineClienteRespDTO save(@RequestBody @Validated NewOrdineClienteDTO payload,
                                         BindingResult validationResult) {
@@ -61,29 +64,34 @@ public class OrdineClienteController {
 
 
     @GetMapping("/{ordineClienteId}")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public OrdineCliente getById(@PathVariable long ordineClienteId) {
         return ordineClienteService.findById(ordineClienteId);
     }
 
     @PutMapping("/{ordineClienteId}")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public OrdineCliente getByIdAndUpdate(@PathVariable long ordineClienteId,
                                           @RequestBody NewOrdineClienteDTO payload) {
         return ordineClienteService.findByIdAndUpdate(ordineClienteId, payload);
     }
 
     @DeleteMapping("/{ordineClienteId}")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void getByIdAndDelete(@PathVariable long ordineClienteId) {
         ordineClienteService.findByIdAndDelete(ordineClienteId);
     }
 
     @PostMapping("/{ordineId}/classifica")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public OrdineClassificatoDTO ordineClassificatoDTO(@PathVariable Long ordineId,
                                             @RequestParam Long segmentoId) {
         return new OrdineClassificatoDTO(ordineClienteService.classificaOrdine(ordineId, segmentoId));
     }
 
     @GetMapping("/con-relazioni")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public List<NewOrdineClienteRespDTO> findAllConRelazioniDTO() {
         return ordineClienteService.findAllConRelazioniDTO();
     }

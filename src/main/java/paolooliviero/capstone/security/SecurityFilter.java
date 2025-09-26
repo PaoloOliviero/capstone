@@ -1,5 +1,6 @@
 package paolooliviero.capstone.security;
 
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -7,15 +8,18 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 import paolooliviero.capstone.entities.Utente;
-import paolooliviero.capstone.exceptions.UnauthorizedException;
 import paolooliviero.capstone.service.UtenteService;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
@@ -36,11 +40,19 @@ public class SecurityFilter extends OncePerRequestFilter {
             try {
                 String accessToken = authHeader.replace("Bearer ", "");
                 jwtTools.verifyToken(accessToken);
-                String utenteId = jwtTools.extractIdFromToken(accessToken);
+
+                Claims claims = jwtTools.extractClaims(accessToken);
+                String utenteId = claims.getSubject();
+                List<String> ruoli = claims.get("ruoli", List.class);
+
                 Utente utenteCorrente = utenteService.findById(Long.parseLong(utenteId));
 
+                List<GrantedAuthority> authorities = ruoli.stream()
+                        .map(r -> new SimpleGrantedAuthority("ROLE_" + r))
+                        .collect(Collectors.toList());
+
                 Authentication auth = new UsernamePasswordAuthenticationToken(
-                        utenteCorrente, null, utenteCorrente.getAuthorities());
+                        utenteCorrente, null, authorities);
 
                 SecurityContextHolder.getContext().setAuthentication(auth);
             } catch (Exception e) {

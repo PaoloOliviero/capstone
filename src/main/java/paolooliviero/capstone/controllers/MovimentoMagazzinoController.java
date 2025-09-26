@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -35,6 +36,7 @@ public class MovimentoMagazzinoController {
     private MovimentoMagazzinoRepository movimentoMagazzinoRepository;
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public Page<NewMovimentoMagazzinoRespDTO> findAllDTO(@RequestParam(defaultValue = "0") int page,
                                                          @RequestParam(defaultValue = "10") int size,
                                                          @RequestParam(defaultValue = "id") String sortBy) {
@@ -57,6 +59,7 @@ public class MovimentoMagazzinoController {
 
 
     @PostMapping ("/creamovimento")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     @ResponseStatus(HttpStatus.CREATED)
     public NewMovimentoMagazzinoRespDTO save(@RequestBody @Validated NewMovimentoMagazzinoDTO payload,
                                              BindingResult validationResult) {
@@ -81,36 +84,43 @@ public class MovimentoMagazzinoController {
         );
     }
     @GetMapping("/filtra/magazzino/{magazzinoId}")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public List<MovimentoMagazzino> filterByMagazzino(@PathVariable Long magazzinoId) {
         return movimentoMagazzinoService.filterByMagazzino(magazzinoId);
     }
 
     @GetMapping("/filtra/mezzo/{mezzoId}")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public List<MovimentoMagazzino> filterByMezzo(@PathVariable Long mezzoId) {
         return movimentoMagazzinoService.filterByMezzo(mezzoId);
     }
 
     @GetMapping("/filtra/data-registrazione")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public List<MovimentoMagazzino> filterByDataRegistrazione(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data) {
         return movimentoMagazzinoService.filterByDataRegistrazione(data);
     }
 
     @GetMapping("/filtra/utente/{utenteId}")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public List<MovimentoMagazzino> filterByUtente(@PathVariable Long utenteId) {
         return movimentoMagazzinoService.filterByUtente(utenteId);
     }
 
     @GetMapping("/filtra/quantita")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public List<MovimentoMagazzino> filterByMinQuantity(@RequestParam Double minQuantity) {
         return movimentoMagazzinoService.filterByMinQuantity(minQuantity);
     }
 
     @GetMapping("/filtra/prodotto-magazzino/{pmId}")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public List<MovimentoMagazzino> filterByProdottoMagazzino(@PathVariable Long pmId) {
         return movimentoMagazzinoService.filterByProdottoMagazzino(pmId);
     }
 
     @GetMapping("/filtra/storico/{storicoId}")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public List<MovimentoMagazzino> filterByStoricoPercorrenza(@PathVariable Long storicoId) {
         return movimentoMagazzinoService.filterByStoricoPercorrenza(storicoId);
     }

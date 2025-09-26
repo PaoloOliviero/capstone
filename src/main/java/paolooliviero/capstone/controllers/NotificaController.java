@@ -2,6 +2,7 @@ package paolooliviero.capstone.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
@@ -30,6 +31,7 @@ public class NotificaController {
     private OrdineClienteRepository ordineClienteRepository;
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     @ResponseStatus(HttpStatus.CREATED)
     public NewNotificaRespDTO crea(@RequestBody NewNotificaRespDTO payload) {
         OrdineCliente ordine = ordineClienteRepository.findById(payload.id())
@@ -39,12 +41,14 @@ public class NotificaController {
     }
 
     @PutMapping("/{id}/visualizzata")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void segnaComeVisualizzata(@PathVariable Long id) {
         notificaService.segnaComeVisualizzata(id);
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public List<NewNotificaRespDTO> getTutteLeNotifiche() {
         return notificaService.getTutte();
     }

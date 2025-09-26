@@ -44,9 +44,18 @@ public class Runner {
             magazzinoPrincipale.setCapacitaOccupata(0);
             magazzinoRepo.save(magazzinoPrincipale);
 
-            Ruolo ruoloUser = new Ruolo();
-            ruoloUser.setNome("USER");
-            ruoloRepo.save(ruoloUser);
+
+            Ruolo ruoloCommerciale = new Ruolo();
+            ruoloCommerciale.setNome("USER_COMMERCIALE");
+            ruoloRepo.save(ruoloCommerciale);
+
+            Ruolo ruoloOperatore = new Ruolo();
+            ruoloOperatore.setNome("USER_OPERATORE");
+            ruoloRepo.save(ruoloOperatore);
+
+            Ruolo ruoloAdmin = new Ruolo();
+            ruoloAdmin.setNome("USER_ADMIN");
+            ruoloRepo.save(ruoloAdmin);
 
             StatoFattura statoEmessa = new StatoFattura();
             statoEmessa.setNome("EMESSA");
@@ -67,7 +76,7 @@ public class Runner {
             utente1.setNome("Paolo");
             utente1.setCognome("Oliviero");
             utente1.setPassword(bcrypt.encode("password123"));
-            utente1.setRuoli(List.of(ruoloUser));
+            utente1.setRuoli(List.of(ruoloAdmin));
             utente1.setMagazzino(magazzinoPrincipale);
             utenteRepo.save(utente1);
 
@@ -76,9 +85,18 @@ public class Runner {
             utente2.setNome("Mario");
             utente2.setCognome("Rossi");
             utente2.setPassword(bcrypt.encode("password456"));
-            utente2.setRuoli(List.of(ruoloUser));
+            utente2.setRuoli(List.of(ruoloOperatore));
             utente2.setMagazzino(magazzinoPrincipale);
             utenteRepo.save(utente2);
+
+            Utente utente3 = new Utente();
+            utente3.setEmail("giulia@example.com");
+            utente3.setNome("Giulia");
+            utente3.setCognome("Verdi");
+            utente3.setPassword(bcrypt.encode("password789"));
+            utente3.setRuoli(List.of(ruoloCommerciale));
+            utente3.setMagazzino(magazzinoPrincipale);
+            utenteRepo.save(utente3);
 
             Cliente cliente1 = new Cliente();
             cliente1.setRagioneSociale("Azienda Berlusconi");

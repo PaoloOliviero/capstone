@@ -15,13 +15,14 @@ import paolooliviero.capstone.service.MagazzinoService;
 
 @RestController
 @RequestMapping("/magazzini")
+@PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
 public class MagazzinoController {
 
     @Autowired
     private MagazzinoService magazzinoService;
 
     @GetMapping
-//    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public Page<Magazzino> findAll(@RequestParam(defaultValue = "0") int page,
                                    @RequestParam(defaultValue = "10") int size,
                                    @RequestParam(defaultValue = "id") String sortBy) {
@@ -30,6 +31,7 @@ public class MagazzinoController {
 
     @PostMapping("/creamagazzino")
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public NewMagazzinoRespDTO save(@RequestBody @Validated NewMagazzinoDTO payload, BindingResult validationResult) {
         if (validationResult.hasErrors()) {
             throw new ValidationException("Validazione fallita");
@@ -39,19 +41,19 @@ public class MagazzinoController {
     }
 
     @GetMapping("/{magazzinoId}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public Magazzino getById(@PathVariable long magazzinoId) {
         return magazzinoService.findById(magazzinoId);
     }
 
     @PutMapping("/{magazzinoId}")
-//    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public Magazzino getByIdAndUpdate(@PathVariable long magazzinoId, @RequestBody NewMagazzinoDTO payload) {
         return this.magazzinoService.findByIdAndUpdate(magazzinoId, payload);
     }
 
     @DeleteMapping("/{magazzinoId}")
-//    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void getByIdAndDelete(@PathVariable long magazzinoId) {
         this.magazzinoService.findByIdAndDelete(magazzinoId);

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class ProdottoMagazzinoController {
     private ProdottoMagazzinoService prodottoMagazzinoService;
 
     @GetMapping
-//    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public Page<ProdottoMagazzino> findAll(@RequestParam(defaultValue = "0") int page,
                                            @RequestParam(defaultValue = "10") int size,
                                            @RequestParam(defaultValue = "id") String sortBy
@@ -32,8 +33,8 @@ public class ProdottoMagazzinoController {
     }
 
     @PostMapping("/creaProdottoMagazzino")
+    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     @ResponseStatus(HttpStatus.CREATED)
-//    @PreAuthorize("hasAuthority('')")
     public NewProdottoMagazzinoRespDTO save(@RequestBody @Validated NewProdottoMagazzinoDTO payload, BindingResult validationResult) {
         if (validationResult.hasErrors()) {
             throw new ValidationException("Errore");
