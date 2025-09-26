@@ -202,7 +202,7 @@ public class Runner {
             segmentoRepo.save(segmento3);
 
             Fattura fattura = new Fattura();
-            fattura.setImporto(1999.99);
+            fattura.setImporto(493);
             fattura.setDataEmissione(LocalDate.now().minusDays(1));
             fattura.setStatoFattura(statoEmessa);
             fattura.setCliente(cliente1);

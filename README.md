@@ -1,5 +1,7 @@
 # capstone
 
+Front-end= https://github.com/PaoloOliviero/capstone-project
+
 Obbiettivo del progetto
 
 Avendo affrontato all’università una tesi in materie logistiche e volendomi specializzare in questo ambito vorrei sviluppare una piattaforma che monitori tutte le fasi del ciclo di un ordine tenendo in considerazione il seguente use case: una azienda cliente A incarica l’azienda B di fornire il servizio di invio pacco per conto dell’azienda A.

@@ -76,6 +76,7 @@ public class RichiestaProdottoService {
         carico.setDescrizione("Carico da richiesta manuale per prodotto ID " + prodotto.getId());
         carico.setVolume(payload.quantitaRichiesta());
         carico.setMezzoDiTrasporto(mezzo);
+        carico.setCategoria("OOS");
 
         carico.setProdottoMagazzino(new ArrayList<>(List.of(prodottoMagazzino)));
         prodottoMagazzino.setCarico(carico);
