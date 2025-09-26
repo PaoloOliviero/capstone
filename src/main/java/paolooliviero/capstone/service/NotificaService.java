@@ -14,8 +14,6 @@ import paolooliviero.capstone.repositories.OrdineClienteRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
-
 @Service
 @Slf4j
 public class NotificaService {
@@ -78,22 +76,19 @@ public class NotificaService {
         notificaRepository.save(notifica);
     }
 
-    public void creaNotificaPerTutti(NewNotificaRespDTO payload,  OrdineCliente ordine) {
-        List<Utente> utenti = utenteService.findAll();
+    public void creaNotificaPerTutti(OrdineCliente ordine) {
+        String titolo = "Segmentazione ordine";
+        String descrizione = "L'ordine #" + ordine.getId() + " è stato assegnato al segmento " +
+                (ordine.getSegmento() != null ? ordine.getSegmento().getNome() : "sconosciuto");
 
-        for (Utente utente : utenti) {
-            Notifica notifica = new Notifica();
-            notifica.setTitolo(payload.titolo());
-            notifica.setDescrizione(payload.descrizione());
-            notifica.setVisualizzata(false);
-            notifica.setData(LocalDateTime.now());
-            notifica.setUtenteDestinatario(utente);
-            notifica.setOrdineCliente(ordine);
+        Notifica notifica = new Notifica();
+        notifica.setTitolo(titolo);
+        notifica.setDescrizione(descrizione);
+        notifica.setVisualizzata(false);
+        notifica.setData(LocalDateTime.now());
+        notifica.setOrdineCliente(ordine);
 
-            notificaRepository.save(notifica);
-        }
-
-        log.info("Notifica inviata a {} utenti", utenti.size());
+        notificaRepository.save(notifica);
     }
 
     public List<NewNotificaRespDTO> getTutte() {

@@ -27,17 +27,16 @@ public class TicketService {
     private UtenteService utenteService;
 
     public void creaTicketPerTutti(OrdineCliente ordine) {
-        List<Utente> utenti = utenteService.findAll();
+        String titolo = "Ticket per ordine #" + ordine.getId();
+        String descrizione = "Segmentato come " + (ordine.getSegmento() != null ? ordine.getSegmento().getNome() : "sconosciuto");
 
-        for (Utente utente : utenti) {
-            Ticket ticket = new Ticket();
-            ticket.setTitolo("Ticket per ordine #" + ordine.getId());
-            ticket.setDescrizione("Segmentato come " + ordine.getSegmento().getNome());
-            ticket.setDataCreazione(LocalDateTime.now());
-            ticket.setOrdineCliente(ordine);
+        Ticket ticket = new Ticket();
+        ticket.setTitolo(titolo);
+        ticket.setDescrizione(descrizione);
+        ticket.setDataCreazione(LocalDateTime.now());
+        ticket.setOrdineCliente(ordine);
 
-            ticketRepository.save(ticket);
-        }
+        ticketRepository.save(ticket);
     }
 
     public Ticket findById(Long id) {

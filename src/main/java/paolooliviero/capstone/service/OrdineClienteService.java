@@ -145,19 +145,9 @@ public class OrdineClienteService {
 
         ordine.setSegmento(segmento);
 
-        NewNotificaRespDTO notifica = new NewNotificaRespDTO(
-                null,
-                "Segmentazione ordine",
-                "L'ordine #" + ordine.getId() + " è stato assegnato al segmento " + segmento.getNome(),
-                false,
-                LocalDateTime.now(),
-                ordine.getCliente() != null ? ordine.getCliente().getRagioneSociale() : "sconosciuto",
-                null
-
-        );
         ticketService.creaTicketPerTutti(ordine);
 
-        notificaService.creaNotificaPerTutti(notifica, ordine);
+        notificaService.creaNotificaPerTutti(ordine);
 
         return ordine;
     }
