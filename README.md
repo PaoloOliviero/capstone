@@ -1,6 +1,6 @@
 # capstone
 
-Front-end= https://github.com/PaoloOliviero/capstone-project
+Front-end= https://github.com/PaoloOliviero/Front_End-Capstone-Project
 
 Obbiettivo del progetto
 
