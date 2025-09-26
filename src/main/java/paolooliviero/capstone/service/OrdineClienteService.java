@@ -15,6 +15,7 @@ import paolooliviero.capstone.exceptions.NotFoundException;
 import paolooliviero.capstone.payloads.*;
 import paolooliviero.capstone.repositories.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -163,6 +164,27 @@ public class OrdineClienteService {
                         ordine.getSegmento() != null ? ordine.getSegmento().getId() : null
                 )).toList();
     }
+
+    public List<OrdineCliente> filterByDataOrdine(LocalDate dataOrdine) {
+        return ordineClienteRepository.filterByDataOrdine(dataOrdine);
+    }
+
+    public List<OrdineCliente> filterByStatoOrdine(StatoOrdine statoOrdine) {
+        return ordineClienteRepository.filterByStatoOrdine(statoOrdine);
+    }
+
+    public List<OrdineCliente> filterByRagioneSociale(String ragioneSociale) {
+        return ordineClienteRepository.filterByRagioneSociale(ragioneSociale);
+    }
+
+    public List<OrdineCliente> filterByImportoFattura(Double importo) {
+        return ordineClienteRepository.filterByImportoFattura(importo);
+    }
+
+    public List<OrdineCliente> filterBySegmento(Long segmentoId) {
+        return ordineClienteRepository.filterBySegmento(segmentoId);
+    }
 }
+
 
 

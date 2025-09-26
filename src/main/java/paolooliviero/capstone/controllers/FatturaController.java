@@ -52,49 +52,33 @@ public class FatturaController {
         );
     }
 
-    @GetMapping("/{fatturaId}")
-    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
-    public Fattura getById(@PathVariable long fatturaId) {
-        return this.fatturaService.findById(fatturaId);
-    }
-
-    @PutMapping("/{fatturaId}")
-    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
-    public Fattura getByIdAndUpdate(@PathVariable long userId, @RequestBody NewFatturaDTO payload) {
-        return this.fatturaService.findByIdAndUpdate(userId, payload);
-    }
 
     @DeleteMapping("/{fatturaId}")
-    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void getByIdAndDelete(@PathVariable long fatturaId) {
-        this.fatturaService.findByIdAndDelete(fatturaId);
+    public void delete(@PathVariable long fatturaId) {
+        fatturaService.findByIdAndDelete(fatturaId);
     }
 
-
     @GetMapping("/filtro/importo")
-    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public List<Fattura> filtroImporto(@RequestParam double importoMax) {
         return fatturaService.filtroImporto(importoMax);
     }
 
     @GetMapping("/filtro/emissione")
-    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
     public List<Fattura> filtroEmissione(@RequestParam LocalDate dataEmissioneMax) {
         return fatturaService.filtroEmissione(dataEmissioneMax);
     }
 
     @GetMapping("/filtro/stato")
-    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
-    public List<Fattura> filtroFattura(@RequestParam String statoNome) {
+    public List<Fattura> filtroStato(@RequestParam String statoNome) {
         return fatturaService.filtroFattura(statoNome);
     }
 
     @GetMapping("/filtro/cliente")
-    @PreAuthorize("hasAnyRole('USER_ADMIN', 'USER_OPERATORE', 'USER_COMMERCIALE')")
-    public List<Fattura> filtroClienteId(@RequestParam long clienteId) {
+    public List<Fattura> filtroCliente(@RequestParam long clienteId) {
         return fatturaService.filtroClienteId(clienteId);
     }
 }
+
 
 

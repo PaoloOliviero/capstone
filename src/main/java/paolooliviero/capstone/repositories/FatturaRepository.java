@@ -24,6 +24,7 @@ public interface FatturaRepository extends JpaRepository<Fattura, Long> {
 
     @Query("SELECT f FROM Fattura f WHERE f.cliente.id = :clienteId")
     List<Fattura> findByClienteId(@Param("clienteId") long clienteId);
+
 }
 
 

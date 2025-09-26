@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import paolooliviero.capstone.entities.OrdineCliente;
 import paolooliviero.capstone.entities.Utente;
+import paolooliviero.capstone.enums.StatoOrdine;
 import paolooliviero.capstone.payloads.NewOrdineClienteDTO;
 import paolooliviero.capstone.payloads.NewOrdineClienteRespDTO;
 import paolooliviero.capstone.payloads.OrdineClassificatoDTO;
@@ -19,6 +20,7 @@ import paolooliviero.capstone.repositories.OrdineClienteRepository;
 import paolooliviero.capstone.service.OrdineClienteService;
 import paolooliviero.capstone.service.UtenteService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -95,6 +97,32 @@ public class OrdineClienteController {
     public List<NewOrdineClienteRespDTO> findAllConRelazioniDTO() {
         return ordineClienteService.findAllConRelazioniDTO();
     }
+
+    @GetMapping("/filtro/data-ordine")
+    public List<OrdineCliente> filtraPerDataOrdine(@RequestParam LocalDate dataOrdine) {
+        return ordineClienteService.filterByDataOrdine(dataOrdine);
+    }
+
+    @GetMapping("/filtro/stato")
+    public List<OrdineCliente> filtraPerStatoOrdine(@RequestParam StatoOrdine statoOrdine) {
+        return ordineClienteService.filterByStatoOrdine(statoOrdine);
+    }
+
+    @GetMapping("/filtro/ragione-sociale")
+    public List<OrdineCliente> filtraPerRagioneSociale(@RequestParam String ragioneSociale) {
+        return ordineClienteService.filterByRagioneSociale(ragioneSociale);
+    }
+
+    @GetMapping("/filtro/importo")
+    public List<OrdineCliente> filtraPerImportoFattura(@RequestParam Double importo) {
+        return ordineClienteService.filterByImportoFattura(importo);
+    }
+
+    @GetMapping("/filtro/segmento")
+    public List<OrdineCliente> filtraPerSegmento(@RequestParam Long segmentoId) {
+        return ordineClienteService.filterBySegmento(segmentoId);
+    }
+
 
 }
 
